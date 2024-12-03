@@ -1,5 +1,3 @@
-import ButtonCheckout from "./ButtonCheckout";
-
 const data = {
   title: "Pricing",
   description: "Spend 1 hour to run your Micro SaaS startup and start making",
@@ -176,7 +174,6 @@ const PricingCard = ({ item }: any) => {
             </div>
           ))}
         </div>
-        <ButtonCheckout priceId={item?.priceId} />
       </div>
       {item?.is_best_deal && (
         <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#006FEE] text-white font-inter text-sm py-1 px-3 rounded-full">

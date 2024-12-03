@@ -1,19 +1,41 @@
-import ButtonAccount from "@/components/ButtonAccount";
+import { auth } from '@clerk/nextjs/server'
+import { redirect } from 'next/navigation';
+import ThankYouPopup from '@/components/ThankyouPopUp';
+import { getSubscriptionByUserId } from '../api/actions';
+import PricingSection from '@/components/PricingSection';
+import StripePortalButton from '@/components/StripePortalButton';
+import {Button} from "@/components/ui/button";
 
-export const dynamic = "force-dynamic";
-
-// This is a private page: It's protected by the layout.js component which ensures the user is authenticated.
-// It's a server compoment which means you can fetch data (like the user profile) before the page is rendered.
-// See https://micro.st/docs/tutorials/private-page
 export default async function Dashboard() {
+  const { userId } = auth();
+  
+  if (!userId) {
+    redirect('/sign-in');
+  }
+
+const sub = await getSubscriptionByUserId(userId)
+const isInactive = sub ? sub?.sub_status !== 'active' : true
+
+if (isInactive) {
+  redirect('/processing-page');
+}
+
   return (
-    <main className="min-h-screen p-8 pb-24">
-      <section className="max-w-xl mx-auto space-y-8">
-        <ButtonAccount />
-        <h1 className="text-3xl md:text-4xl font-extrabold text-white">
-          Private Page
-        </h1>
-      </section>
-    </main>
+    <div>
+          {userId} 
+          <br />
+          {sub?.sub_status}
+          <br />
+          {isInactive}
+          <br />
+
+          {isInactive ? <PricingSection /> : <div>
+            <StripePortalButton />
+            <ThankYouPopup />
+          
+            </div>}
+    </div>
+    
   );
+  
 }

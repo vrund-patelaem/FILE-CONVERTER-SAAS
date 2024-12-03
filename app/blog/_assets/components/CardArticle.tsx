@@ -1,99 +1,78 @@
-import type { JSX } from "react";
+import type {FC, JSX} from "react";
 import Link from "next/link";
 import Image from "next/image";
-import BadgeCategory from "./BadgeCategory";
 import Avatar from "./Avatar";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
-// This is the article card that appears in the home page, in the category page, and in the author's page
 
-const CardArticle = ({
-  article,
-  tag = "h2",
-  showCategory = true,
-  isImagePriority = false,
-  authorAvatar,
-  isAuthorPage,
-}: {
-  article: any;
-  tag?: keyof JSX.IntrinsicElements;
-  showCategory?: boolean;
+
+interface  CardArticleProps {
+  article: WPPostListItem,
   isImagePriority?: boolean;
-  isAuthorPage?: boolean;
-  authorAvatar?: string;
+}
+
+const CardArticle: FC<CardArticleProps> = ({
+  article, isImagePriority
 }) => {
-  const TitleTag = tag;
 
   return (
     <Card className="card bg-[#141414] rounded-box overflow-hidden">
-      {article?.attributes?.blog_image?.data?.attributes?.url && (
+      `
+      {article?.title?.rendered && (
         <CardHeader>
           <Link
-            href={`/blog/${article?.id}`}
+            href={`/blog/${article?.slug}`}
             className="link link-hover hover:link-primary"
-            title={article?.attributes.title}
+            title={article.title.rendered}
             rel="bookmark"
           >
             <figure>
-              <Image
-                src={article?.attributes?.blog_image?.data?.attributes?.url}
-                alt={article?.attributes?.blog_image?.data?.attributes?.name}
-                width={600}
-                height={338}
-                priority={isImagePriority}
-                className="aspect-video object-center object-cover hover:scale-[1.03] duration-200 ease-in-out"
-              />
+              {!!article.image_url.length &&
+                  <Image
+                      src={article.image_url}
+                      alt={'asfwefcwedf'}
+                      width={600}
+                      height={338}
+                      priority={isImagePriority}
+                      className="aspect-video object-center object-cover hover:scale-[1.03] duration-200 ease-in-out"
+                  />
+              }
+
             </figure>
           </Link>
         </CardHeader>
       )}
 
       <CardContent className="card-body">
-        {/* CATEGORIES */}
 
-        {showCategory && (
-          <div className="flex flex-wrap gap-2">
-            <BadgeCategory category={article?.attributes?.category} />
-          </div>
-        )}
-
-        {/* TITLE WITH RIGHT TAG */}
-
-        <TitleTag className="mb-1 text-xl md:text-2xl font-bold text-white hover:text-white">
+        <h2 className="mb-1 text-xl md:text-2xl font-bold text-white hover:text-white">
           <Link
-            href={`/blog/${article.id}`}
+            href={`/blog/${article.slug}`}
             className="link link-hover hover:text-white"
-            title={article?.attributes?.title}
+            title={article?.title?.rendered || ''}
             rel="bookmark"
           >
-            {article?.attributes?.title}
+            {article.title.rendered}
           </Link>
-        </TitleTag>
+        </h2>
 
         <div className=" text-base-content/80 space-y-4">
-          {/* DESCRIPTION */}
 
-          <p className="text-white">{article?.attributes?.detail}</p>
 
-          {/* AUTHOR & DATE */}
-
-          <div className="flex items-center gap-4 text-sm text-white">
-            <Avatar
-              authorAvatar={authorAvatar}
-              isAuthorPage={isAuthorPage}
-              article={article}
-            />
-
-            <span itemProp="datePublished">
-              {new Date(article?.attributes.publishedAt).toLocaleDateString(
-                "en-US",
-                {
-                  month: "long",
-                  day: "numeric",
-                }
+          {!!article?.date &&
+              <div className="flex items-center gap-4 text-sm text-white">
+                <span itemProp="datePublished">
+              {new Date(article?.date).toLocaleDateString(
+                  "en-US",
+                  {
+                    month: "long",
+                    day: "numeric",
+                  }
               )}
             </span>
-          </div>
+              </div>
+          }
+
         </div>
       </CardContent>
     </Card>

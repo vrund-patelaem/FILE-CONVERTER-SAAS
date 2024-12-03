@@ -5,7 +5,8 @@ import PlausibleProvider from "next-plausible";
 import { getSEOTags } from "@/libs/seo";
 import ClientLayout from "@/components/LayoutClient";
 import config from "@/config";
-import "./globals.css";
+import "../globals.scss";
+import { ClerkProvider, SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 
 const font = Inter({ subsets: ["latin"] });
 
@@ -22,9 +23,16 @@ export const metadata = getSEOTags();
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
+    <ClerkProvider>
     <html lang="en" data-theme={config.colors.theme} className={font.className}>
       {config.domainName && (
         <head>
+          <SignedOut>
+              <SignInButton />
+            </SignedOut>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
           <PlausibleProvider domain={config.domainName} />
         </head>
       )}
@@ -33,5 +41,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
+    </ClerkProvider>
   );
 }

@@ -55,7 +55,7 @@ const Header = () => {
           </div>
         </div>
         <div className="hidden md:block">
-          <ButtonSignin text="Login" />
+          <ButtonSignin text="Login2" />
         </div>
         <div className="md:hidden block">
           <Sheet>

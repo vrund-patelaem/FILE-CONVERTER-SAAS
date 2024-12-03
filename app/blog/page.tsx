@@ -1,10 +1,7 @@
-import { categories } from "./_assets/content";
-import CardArticle from "./_assets/components/CardArticle";
-import CardCategory from "./_assets/components/CardCategory";
 import config from "@/config";
 import { getSEOTags } from "@/libs/seo";
-import { getData } from "@/utils/fetch";
-import { isArray } from "util";
+import {wordpressService} from "@/libs/wp";
+import CardArticle from "@/app/blog/_assets/components/CardArticle";
 
 export const metadata = getSEOTags({
   title: `${config.appName} Blog | Stripe Chargeback Protection`,
@@ -15,11 +12,7 @@ export const metadata = getSEOTags({
 });
 
 export default async function Blog() {
-  const data = await getData(
-    "blogs/?populate[author][populate]=*&populate=blog_image"
-  );
-
-  // console.log(data?.data[0]?.attributes?.author?.data?.attributes);
+    const articles = await wordpressService.getAllPosts()
 
   return (
     <>
@@ -35,10 +28,8 @@ export default async function Blog() {
       </section>
 
       <section className="grid lg:grid-cols-2 mb-24 md:mb-32 gap-8">
-        {data &&
-          data?.data &&
-          isArray(data?.data) &&
-          data?.data?.map((article: any, i: number) => (
+        {articles && !!articles.length &&
+            articles?.map((article, i: number) => (
             <CardArticle
               article={article}
               key={article.id}
@@ -47,17 +38,17 @@ export default async function Blog() {
           ))}
       </section>
 
-      <section>
-        <p className="font-bold text-2xl lg:text-4xl tracking-tight text-center mb-8 md:mb-12 text-white">
-          Browse articles by category
-        </p>
+      {/*<section>*/}
+      {/*  <p className="font-bold text-2xl lg:text-4xl tracking-tight text-center mb-8 md:mb-12 text-white">*/}
+      {/*    Browse articles by category*/}
+      {/*  </p>*/}
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {categories.map((category) => (
-            <CardCategory key={category.slug} category={category} tag="div" />
-          ))}
-        </div>
-      </section>
+      {/*  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">*/}
+      {/*    {categories.map((category) => (*/}
+      {/*      <CardCategory key={category.slug} category={category} tag="div" />*/}
+      {/*    ))}*/}
+      {/*  </div>*/}
+      {/*</section>*/}
     </>
   );
 }

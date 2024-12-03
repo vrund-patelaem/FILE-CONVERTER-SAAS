@@ -32,7 +32,7 @@ const Form = () => {
     // console.log("email", email);
     try {
       // Make the POST request using fetch
-      const response = await fetch("/api/lead", {
+      const response = await fetch("/api/waiting-list", {
         method: "POST", // Specify the request method
         headers: {
           "Content-Type": "application/json", // Specify the content type

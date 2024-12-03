@@ -1,41 +1,79 @@
-import { Resend } from "resend";
+import ThankYouTemplate from '@/components/email-templates/ThanksYouTemplate';
+import {Resend} from 'resend';
+import config from "@/config";
+import prisma from "@/libs/prisma";
+import InvoiceTemplate from "@/components/email-templates/Invoice";
 
-if (!process.env.RESEND_API_KEY) {
-  console.group("⚠️ RESEND_API_KEY missing from .env");
-  console.error("It's not mandatory but it's required to send emails.");
-  console.error("If you don't need it, remove the code from /libs/resend.ts");
-  console.groupEnd();
+class ResendService {
+    private resend = new Resend(process.env.RESEND_API_KEY);
+
+    public async sendThanksYouEmail(toMail: string) {
+
+      try {
+        const { data, error } = await this.resend.emails.send({
+            from: config.resend.fromAdmin,
+            to: [toMail],
+            replyTo: config.resend.forwardRepliesTo,
+            subject: config.resend.subjects.thankYou,
+            react: ThankYouTemplate({ email: toMail }),
+          });
+        
+          if (error) {
+            throw error
+          }
+
+          return data
+        } catch(e) {
+          throw e
+        }
+    }
+
+    public async sendInvoice(toMail: string, renderData: InvoiceGenerateData) {
+        const { data, error } = await this.resend.emails.send({
+            from: config.resend.fromAdmin,
+            to: [toMail],
+            replyTo: config.resend.forwardRepliesTo,
+            subject: 'Invoice: '+renderData.id,
+            react: InvoiceTemplate(renderData),
+        });
+
+        if (error) {
+            throw error
+        }
+
+        return data
+    }
+
+    public async addNewEmailAddress(email: string) {
+        const audience = await this.upsertAudience()
+        return this.resend.contacts.create({
+            email,
+            unsubscribed: false,
+            audienceId: audience.resend_id,
+        })
+    }
+
+    private async upsertAudience() {
+        try {
+            const audience = await prisma.audiences.findFirst()
+
+            if(audience) {
+                return audience
+            }
+
+            const resendAudience = await this.resend.audiences.create({ name: 'Waiting List' });
+            const {data: {id, name}} = resendAudience
+            return prisma.audiences.create({
+                data: {
+                    resend_id: id,
+                    name
+                }
+            })
+        } catch (e) {
+            throw e
+        }
+    }
+
 }
 
-/**
- * Sends an email using the provided parameters.
- *
- * @async
- * @param {string} to - The recipient's email address.
- * @param {string} subject - The subject of the email.
- * @param {string} html - The HTML content of the email.
- * @returns {Promise} A Promise that resolves when the email is sent.
- */
-
-export const sendEmail = async ({
-  subject,
-  html,
-  replyTo,
-}: {
-  from: string;
-  subject: string;
-  text?: string;
-  html?: string;
-  replyTo?: string;
-}): Promise<any> => {
-  const resend = new Resend(process.env.RESEND_API_KEY);
-
-  const email_libs = await resend.emails.send({
-    from: process.env.SEND_EMAIL_FROM,
-    subject,
-    to: replyTo,
-    html,
-  });
-
-  console.log("email_libs", email_libs);
-};
+export const resendService = new ResendService()

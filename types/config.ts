@@ -26,41 +26,19 @@ export interface ConfigProps {
   appName: string;
   appDescription: string;
   domainName: string;
-  crisp: {
-    id?: string;
-    onlyShowOnRoutes?: string[];
-  };
   stripe: {
-    plans: {
-      isFeatured?: boolean;
-      priceId: string;
-      name: string;
-      description?: string;
-      price: number;
-      priceAnchor?: number;
-      features: {
-        name: string;
-      }[];
-    }[];
-  };
-  aws?: {
-    bucket?: string;
-    bucketUrl?: string;
-    cdn?: string;
-  };
-  resend: {
-    subdomain: string;
-    fromNoReply: string;
-    fromAdmin: string;
-    supportEmail?: string;
-    forwardRepliesTo?: string;
+    products: StripeProduct[];
   };
   colors: {
     theme: Theme;
     main: string;
   };
-  auth: {
-    loginUrl: string;
-    callbackUrl: string;
+  resend: {
+    fromAdmin: string;
+    supportEmail?: string;
+    forwardRepliesTo?: string;
+    subjects?: {
+      [key: string]: string
+    }
   };
 }

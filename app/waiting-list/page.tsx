@@ -3,9 +3,9 @@ import { getSEOTags } from "@/libs/seo";
 import Form from "./_assets/components/form";
 
 export const metadata = getSEOTags({
-  title: `${config.appName} Waiting List | Stripe Chargeback Protection`,
+  title: `${config.appName} Waiting List | Best AI tools`,
   description:
-    "Learn how to prevent chargebacks, how to accept payments online, and keep your Stripe account in good standing",
+    "How to launch your MicroSaaS",
 });
 
 export default function WaitingList() {

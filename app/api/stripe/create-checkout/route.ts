@@ -1,83 +1,67 @@
-import { NextResponse, NextRequest } from "next/server";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/libs/next-auth";
-import { createCheckout } from "@/libs/stripe";
-import prisma from "@/libs/prisma";
+import { NextResponse } from 'next/server';
+import Stripe from 'stripe';
+import config from "@/config";
 
-// This function is used to create a Stripe Checkout Session (one-time payment or subscription)
-// It's called by the <ButtonCheckout /> component
-// By default, it doesn't force users to be authenticated. But if they are, it will prefill the Checkout data with their email and/or credit card
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+  apiVersion: '2024-06-20',
+});
 
-export async function POST(req: NextRequest) {
-  const body = await req.json();
-
-  if (!body.priceId) {
-    return NextResponse.json(
-      {
-        error: "Price ID is required",
-      },
-      {
-        status: 400,
-      }
-    );
-  } else if (!body.successUrl || !body.cancelUrl) {
-    return NextResponse.json(
-      {
-        error: "Success and cancel URLs are required",
-      },
-      {
-        status: 400,
-      }
-    );
-  } else if (!body.mode) {
-    return NextResponse.json(
-      {
-        error:
-          "Mode is required (either 'payment' for one-time payments or 'subscription' for recurring subscription)",
-      },
-      {
-        status: 400,
-      }
-    );
-  }
-
+export async function POST(req: Request) {
   try {
-    const session = await getServerSession(authOptions);
+    const { priceId, email, userId } = await req.json() as { priceId?: string; email?: string; userId?: string };
 
-    const user = await prisma.user.findFirst({
-      where: {
-        id: Number(session.user.id),
-      },
-    });
+    if (!priceId) {
+      return NextResponse.json({ error: 'Price ID is required' }, { status: 400 });
+    }
 
-    const { priceId, mode, successUrl, cancelUrl } = body;
+    const currentProduct = config.stripe.products.find((prod) => prod.priceId === priceId)
 
-    const stripeSessionURL = await createCheckout({
-      priceId,
+    if(!currentProduct) {
+      return NextResponse.json({ error: 'Product not found' }, { status: 400 });
+    }
+
+    if (!email) {
+      return NextResponse.json({ error: 'Email is required' }, { status: 400 });
+    }
+
+    const isSub = currentProduct.type === 'subscription'
+    const planType = priceId.includes('monthly') ? 'monthly' : 'yearly';
+
+    const mode = isSub ? 'subscription' : 'payment'
+
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items: [
+        {
+          price: priceId,
+          quantity: 1,
+        },
+      ],
       mode,
-      successUrl,
-      cancelUrl,
-      // If user is logged in, it will pass the user ID to the Stripe Session so it can be retrieved in the webhook later
-      clientReferenceId: user?.id?.toString(),
-      // If user is logged in, this will automatically prefill Checkout data like email and/or credit card for faster checkout
-      user,
-      // If you send coupons from the frontend, you can pass it here
-      // couponId: body.couponId,
-    });
-
-    return NextResponse.json({
-      url: stripeSessionURL,
-    });
-  } catch (e) {
-    console.error(e);
-
-    return NextResponse.json(
-      {
-        error: e?.message,
+      success_url: `${req.headers.get('origin')}/dashboard?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${req.headers.get('origin')}/cancel?session_id={CHECKOUT_SESSION_ID}`,
+      customer_email: email,
+      metadata: {
+        priceId: priceId,
+        productId: currentProduct.productId,
+        userId: userId || 'anonymous',
+        ...(isSub ? {planType} : {}),
       },
-      {
-        status: 500,
-      }
-    );
+    });
+
+    console.log('Created Stripe session:', {
+      id: session.id,
+      customer_email: session.customer_email,
+      payment_status: session.payment_status,
+      url: session.url
+    });
+
+    return NextResponse.json({ sessionId: session.id, checkoutUrl: session.url });
+  } catch (err) {
+    console.error('Stripe API error:', err);
+    if (err instanceof Stripe.errors.StripeError) {
+      return NextResponse.json({ error: err.message }, { status: err.statusCode || 500 });
+    }
+    return NextResponse.json({ error: 'An unexpected error occurred' }, { status: 500 });
   }
 }

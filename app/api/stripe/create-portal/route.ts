@@ -1,68 +1,13 @@
 import { NextResponse, NextRequest } from "next/server";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/libs/next-auth";
-import { createCustomerPortal } from "@/libs/stripe";
+import { stripeService } from "@/libs/stripe";
 import prisma from "@/libs/prisma";
+import { auth } from '@clerk/nextjs/server'
+
 
 export async function POST(req: NextRequest) {
-  const session = await getServerSession(authOptions);
+  const { userId }: { userId: string | null } = auth()
 
-  if (session) {
-    try {
-      const body = await req.json();
-      console.log("body", body);
-      const { id } = session.user;
-
-      const user = await prisma.user.findUnique({
-        where: {
-          id: Number(id),
-        },
-      });
-
-      if (!user?.customerId) {
-        return NextResponse.json(
-          {
-            error:
-              "You don't have a billing account yet. Make a purchase first.",
-          },
-          {
-            status: 400,
-          }
-        );
-      } else if (!body.returnUrl) {
-        return NextResponse.json(
-          {
-            error: "Return URL is required",
-          },
-          {
-            status: 400,
-          }
-        );
-      }
-
-      const stripePortalUrl = await createCustomerPortal({
-        customerId: user.customerId,
-        returnUrl: body.returnUrl,
-      });
-
-      return NextResponse.json({
-        url: stripePortalUrl,
-      });
-    } catch (e) {
-      console.error(e);
-
-      return NextResponse.json(
-        {
-          error: e?.message,
-        },
-        {
-          status: 500,
-        }
-      );
-    }
-  } else {
-    // Not Signed in
-
+  if(!userId) {
     return NextResponse.json(
       {
         error: "Not signed in",
@@ -72,4 +17,45 @@ export async function POST(req: NextRequest) {
       }
     );
   }
+  
+  try {
+
+    const subscription = await prisma.subscription.findFirst({
+      where: {
+        user_clerk_id: userId,
+      },
+    });
+
+    if (!subscription?.stripe_customer_id) {
+      return NextResponse.json(
+        {
+          error:
+            "You don't have a billing account yet. Make a purchase first.",
+        },
+        {
+          status: 400,
+        }
+      );
+    } 
+
+    const returnUrl = `${req.headers.get('origin')}/dashboard`
+
+    const stripePortalUrl = await stripeService.createCustomerPortal(subscription.stripe_customer_id, returnUrl);
+
+    return NextResponse.json({
+      url: stripePortalUrl,
+    });
+  } catch (e) {
+    console.error(e);
+
+    return NextResponse.json(
+      {
+        error: e?.message,
+      },
+      {
+        status: 500,
+      }
+    );
+  }
+
 }

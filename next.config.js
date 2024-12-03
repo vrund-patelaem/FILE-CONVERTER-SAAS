@@ -11,6 +11,7 @@ const nextConfig = {
       "localhost",
       "cdn-icons-png.flaticon.com",
       "res.cloudinary.com",
+      "blogger.googleusercontent.com",
       "fast-strapi-cms-651b34b82e95.herokuapp.comhttps",
     ],
   },

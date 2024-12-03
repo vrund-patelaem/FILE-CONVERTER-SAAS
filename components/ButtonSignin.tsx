@@ -1,14 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useSession, signIn } from "next-auth/react";
+import { useUser, useClerk } from "@clerk/nextjs";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import config from "@/config";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
-// A simple button to sign in with our providers (Google & Magic Links).
-// It automatically redirects user to callbackUrl (config.auth.callbackUrl) after login, which is normally a private page for users to manage their accounts.
+// A simple button to sign in with Clerk.
+// It automatically redirects the user to callbackUrl (config.auth.callbackUrl) after login,
+// which is normally a private page for users to manage their accounts.
 // If the user is already logged in, it will show their profile picture & redirect them to callbackUrl immediately.
 const ButtonSignin = ({
   text = "Get started",
@@ -18,26 +20,30 @@ const ButtonSignin = ({
   extraStyle?: string;
 }) => {
   const router = useRouter();
-  const { data: session, status } = useSession();
+  const { isSignedIn, user } = useUser();
+  const { openSignIn, signOut } = useClerk();
 
   const handleClick = () => {
-    if (status === "authenticated") {
-      router.push(config.auth.callbackUrl);
+    if (isSignedIn) {
+      router.push('/');
     } else {
-      signIn(undefined, { callbackUrl: config.auth.callbackUrl });
+      openSignIn({
+        // Optionally, you can specify sign-in options here
+        redirectUrl: '/dashboard',
+      });
     }
   };
 
-  if (status === "authenticated") {
+  if (isSignedIn && user) {
     return (
       <Link
-        href={config.auth.callbackUrl}
-        className={`btn ${extraStyle ? extraStyle : ""}`}
+        href={'/dashboard'}
+        className={`btn ${extraStyle ? extraStyle : ""} flex items-center gap-2`}
       >
-        {session.user?.image ? (
-          <img
-            src={session.user?.image}
-            alt={session.user?.name || "Account"}
+        {user.hasImage ? (
+          <Image
+            src={user.imageUrl}
+            alt={user.firstName || "Account"}
             className="w-6 h-6 rounded-full shrink-0"
             referrerPolicy="no-referrer"
             width={24}
@@ -45,10 +51,12 @@ const ButtonSignin = ({
           />
         ) : (
           <span className="w-6 h-6 bg-base-300 flex justify-center items-center rounded-full shrink-0">
-            {session.user?.name?.charAt(0) || session.user?.email?.charAt(0)}
+            {user.firstName
+              ? user.firstName.charAt(0)
+              : user.primaryEmailAddress?.emailAddress || "A"}
           </span>
         )}
-        {session.user?.name || session.user?.email || "Account"}
+        {user.firstName || user.primaryEmailAddress?.emailAddress || "Account"}
       </Link>
     );
   }

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import config from "@/config";
+import {AbsoluteString, DefaultTemplateString} from "next/dist/lib/metadata/types/metadata-types";
 
 // These are all the SEO tags you can add to your pages.
 // It prefills data with default title/description/OG, etc.. and you can cusotmize it for each page.
@@ -36,7 +37,7 @@ export const getSEOTags = ({
       title: openGraph?.title || config.appName,
       description: openGraph?.description || config.appDescription,
       url: openGraph?.url || `https://${config.domainName}/`,
-      siteName: openGraph?.title || config.appName,
+      siteName: (openGraph?.title || config.appName) as string,
       // If you add an opengraph-image.(jpg|jpeg|png|gif) image to the /app folder, you don't need the code below
       // images: [
       //   {
@@ -54,7 +55,7 @@ export const getSEOTags = ({
       // If you add an twitter-image.(jpg|jpeg|png|gif) image to the /app folder, you don't need the code below
       // images: [openGraph?.image || defaults.og.image],
       card: "summary_large_image",
-      creator: "@marc_louvion",
+      creator: "@dennis_babych",
     },
     // If a canonical URL is given, we add it. The metadataBase will turn the relative URL into a fully qualified URL
     ...(canonicalUrlRelative && {
@@ -87,7 +88,7 @@ export const renderSchemaTags = () => {
           url: `https://${config.domainName}/`,
           author: {
             "@type": "Person",
-            name: "Marc Lou",
+            name: "Dennis Babych",
           },
           datePublished: "2023-08-01",
           applicationCategory: "EducationalApplication",

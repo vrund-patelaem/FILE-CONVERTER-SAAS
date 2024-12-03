@@ -5,7 +5,9 @@
       "dom.iterable",
       "esnext"
     ],
+    "typeRoots": ["./node_modules/@types", "./types"],
     "allowJs": true,
+    "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "strict": false,
     "forceConsistentCasingInFileNames": true,
