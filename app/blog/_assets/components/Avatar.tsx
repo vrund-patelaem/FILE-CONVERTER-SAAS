@@ -5,7 +5,7 @@ import {FC} from "react";
 // This is the author avatar that appears in the article page and in <CardArticle /> component
 
 interface BlogAvatarProps {
-  author: BloggerPostAuthor
+  author: any
 }
 
 const Avatar: FC<BlogAvatarProps> = ({author}) => {

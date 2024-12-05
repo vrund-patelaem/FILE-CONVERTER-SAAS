@@ -1,5 +1,5 @@
 "use client";
-import { IconButton } from "@/components";
+import IconButton from "@/components/icon-button"; // исправлен путь к компоненту IconButton
 import { RightArrow } from "@/icons";
 import Image from "next/image";
 

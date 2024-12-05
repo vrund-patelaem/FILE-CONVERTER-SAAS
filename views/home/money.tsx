@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { Heading, Logo } from "@/components";
 import { Slider } from "@/components/ui/slider";
-import {cn} from "@/utils/class-name";
+import {cn} from "@/helpers/utils";
 
 const data = [
   {
