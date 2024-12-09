@@ -1,5 +1,5 @@
 import themes from "daisyui/src/theming/themes";
-import { ConfigProps } from "./types/config";
+import { ConfigProps } from "@/types";
 
 const config: ConfigProps = {
   // REQUIRED

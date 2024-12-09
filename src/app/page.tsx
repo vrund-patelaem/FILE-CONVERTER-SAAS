@@ -5,7 +5,7 @@ import Features from "@/components/Features";
 import Pricing from "@/components/Pricing";
 import FAQ from "@/components/FAQ";
 import CTA from "@/components/CTA";
-// import Hero from '../views/home/hero';
+import Hero from '@/views/home/hero';
 
 export default function Home() {
   return (
@@ -13,14 +13,14 @@ export default function Home() {
       <Suspense>
         <Header />
       </Suspense>
-      <main>
-        {/* <Hero /> */}
+        <div className="min-h-[100vh] flex flex-col justify-between w-full bg-white dark:bg-[#010814]">
+        <Hero />
         <Problem />
         <Features />
         <Pricing />
         <FAQ />
         <CTA />
-      </main>
+      </div>
     </>
   );
 }

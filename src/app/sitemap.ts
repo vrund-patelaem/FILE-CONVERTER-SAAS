@@ -4,7 +4,7 @@ import {wordpressService} from "@/libs/wp";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const currentUrl = process.env.NEXT_PUBLIC_APP_URL || ''
 
-    const posts = await wordpressService.getPostsForSitemap().then(resp => resp).catch(() => [])
+    const posts = await wordpressService.getPostsForSitemap().then(resp => resp).catch(():any[] => [])
 
     const blogPostsMaps: MetadataRoute.Sitemap = posts.map((post) => ({
         url: `${currentUrl}/blog/${post.slug}`,

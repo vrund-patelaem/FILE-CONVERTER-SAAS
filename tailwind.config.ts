@@ -6,7 +6,8 @@ const config = {
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/**/*.{js,ts,jsx,tsx,mdx}",
+    "./views/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/**/*.{js,ts,jsx,tsx,mdx,scss,css}",
   ],
   prefix: "",
   theme: {
@@ -18,6 +19,14 @@ const config = {
       },
     },
     extend: {
+      colors: {
+        primary: "#006FEE",
+        black1: "#010610",
+        secondary: "#D6D6DE",
+      },
+      backgroundImage: {
+        banner: "url('/assets/banner.svg')",
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },

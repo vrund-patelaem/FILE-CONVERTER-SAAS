@@ -1,6 +1,6 @@
 import React from 'react';
 
-const InvoiceTemplate = (props: InvoiceGenerateData) => {
+const InvoiceTemplate = (props: any) => {
     return (
         <div className="max-w-3xl mx-auto p-8 bg-white">
             <div className="mb-8">

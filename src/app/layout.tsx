@@ -3,8 +3,9 @@ import { Inter } from "next/font/google";
 import { Viewport } from "next";
 import { getSEOTags } from "@/libs/seo";
 import { ClerkProvider } from '@clerk/nextjs';
-import "../globals.scss";
 import { Providers } from "@/components/providers";
+
+import "@/assets/styles/globals.scss";
 
 const font = Inter({ subsets: ["latin"] });
 

@@ -9,26 +9,22 @@ class ResendService {
 
     public async sendThanksYouEmail(toMail: string) {
 
-      try {
         const { data, error } = await this.resend.emails.send({
             from: config.resend.fromAdmin,
             to: [toMail],
             replyTo: config.resend.forwardRepliesTo,
             subject: config.resend.subjects.thankYou,
             react: ThankYouTemplate({ email: toMail }),
-          });
-        
-          if (error) {
-            throw error
-          }
+        });
 
-          return data
-        } catch(e) {
-          throw e
+        if (error) {
+            throw error
         }
+
+        return data
     }
 
-    public async sendInvoice(toMail: string, renderData: InvoiceGenerateData) {
+    public async sendInvoice(toMail: string, renderData: any) {
         const { data, error } = await this.resend.emails.send({
             from: config.resend.fromAdmin,
             to: [toMail],
