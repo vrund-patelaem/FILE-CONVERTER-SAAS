@@ -16,6 +16,7 @@ const nextConfig = {
       "res.cloudinary.com",
       "blogger.googleusercontent.com",
       "fast-strapi-cms-651b34b82e95.herokuapp.comhttps",
+      'secure.gravatar.com'
     ],
   },
 };

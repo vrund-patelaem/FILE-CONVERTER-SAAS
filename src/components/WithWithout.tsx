@@ -52,11 +52,13 @@ const SpeedCard = ({ item }: any) => {
   return (
     <div
       className={`relative min-w-[300px] pb-8 pt-6 px-4 min-h-full border rounded-[16px] w-full h-full scale-1 hover:scale-[1.05] transition-all duration-300 ${
-        !item?.is_primary ? "border-[#222222]" : "border-[#49C172] bg-[#131211]"
+        !item?.is_primary
+          ? "dark:border-[#222222] dark:bg-black1 border-gray-400 bg-[#e4e4e4]"
+          : "border-[#49C172] dark:bg-[#131211] bg-[#cacaca]"
       }`}
     >
       <div>
-        <p className="text-center text-white font-inter text-xl font-bold mb-4">
+        <p className="text-center dark:text-white text-black1 font-inter text-xl font-bold mb-4">
           {item?.title}
         </p>
         {item?.text?.map((cardItem: any, index: number) => (
@@ -66,7 +68,9 @@ const SpeedCard = ({ item }: any) => {
           >
             <div
               className={`${
-                !item?.is_primary ? "text-[#95959D]" : "text-[#fff]"
+                !item?.is_primary
+                  ? "dark:text-[#95959D] text-black1/60"
+                  : "dark:text-[#fff] text-black1"
               }`}
             >
               <svg
@@ -84,7 +88,9 @@ const SpeedCard = ({ item }: any) => {
             </div>
             <p
               className={`${
-                !item?.is_primary ? "text-[#95959D]" : "text-[#F7F7F7]"
+                !item?.is_primary
+                  ? "dark:text-[#95959D] text-black1/60"
+                  : "dark:text-[#F7F7F7] text-black1"
               } font-inter text-center text-sm`}
             >
               {cardItem?.text}
@@ -93,7 +99,7 @@ const SpeedCard = ({ item }: any) => {
         ))}
       </div>
       {item?.is_primary && (
-        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 bg-[#49C172] text-white font-inter font-bold text-[22px] py-1 px-3 rounded-full">
+        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 bg-[#49C172] text-white font-inter font-bold text-[22px] py-1 px-3 rounded-full z-10">
           1 hour
         </div>
       )}
@@ -103,16 +109,16 @@ const SpeedCard = ({ item }: any) => {
 
 const Speed = () => {
   return (
-    <div className="flex justify-center items-center pt-24 sm:pt-32 w-full">
+    <div className="flex justify-center items-center pt-24 sm:pt-32 pb- w-full">
       <div className="max-w-[1440px] w-full px-4 sm:px-12">
         <div className="w-full flex flex-col items-center">
           <h2
-            className={`font-inter text-[32px] sm:text-[48px] leading-[38px] sm:leading-[57px] font-bold text-center mb-4 max-w-[700px] text-transparent bg-gradient-to-r from-[#73B8FF] to-[#00458C] inline-block bg-clip-text`}
+            className={`font-inter text-[32px] sm:text-[48px] leading-[38px] sm:leading-[57px] font-bold text-center mb-4 max-w-[700px] text-transparent bg-gradient-to-r dark:from-[#73B8FF] from-[#38516b] dark:to-[#00458C] to-[#012346] inline-block bg-clip-text`}
           >
             {data?.title}
           </h2>
           <p
-            className={`text-[#95959D] font-inter text-base sm:text-xl text-center max-w-[600px]`}
+            className={`dark:text-[#95959D] text-black1/70 font-inter text-base sm:text-xl text-center max-w-[600px]`}
           >
             {data?.description}
           </p>

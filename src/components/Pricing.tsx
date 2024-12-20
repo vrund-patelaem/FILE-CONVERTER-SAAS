@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const data = {
   title: "Pricing",
   description: "Spend 1 hour to run your Micro SaaS startup and start making",
@@ -135,7 +137,7 @@ const data = {
 const PricingCard = ({ item }: any) => {
   return (
     <div
-      className={`relative max-w-[350px] w-full pb-5 pt-10 bg-[#131211] px-4 min-h-full border rounded-[16px] scale-1 hover:scale-[1.025] transition-all duration-300 ${
+      className={`relative max-w-[350px] w-full pb-5 pt-10 dark:bg-[#131211] bg-[#e4e4e4] px-4 min-h-full border rounded-[16px] scale-1 hover:scale-[1.025] transition-all duration-300 ${
         !item?.is_best_deal ? "border-[#222222]" : "border-[#006FEE]"
       }`}
     >
@@ -143,18 +145,20 @@ const PricingCard = ({ item }: any) => {
         <div>
           <div className="flex items-center justify-center mb-8 gap-2 pr-5">
             {item?.price_before && (
-              <p className="text-center text-[#95959D] font-inter font-bold text-2xl line-through">
+              <p className="text-center dark:text-[#95959D] text-black1/70 font-inter font-bold text-2xl line-through">
                 {item?.price_before}
               </p>
             )}
-            <p className="text-center text-white font-inter font-bold text-5xl">
+            <p className="text-center dark:text-white text-black1 font-inter font-bold text-5xl">
               {item?.price_now}
             </p>
           </div>
-          <p className="text-white font-inter font-bold mb-4">Key features:</p>
+          <p className="dark:text-white text-black1/70 font-inter font-bold mb-4">
+            Key features:
+          </p>
           {item?.features?.map((cardItem: any, index: number) => (
             <div key={index} className="flex gap-2 mb-3">
-              <div className="text-[#95959D]">
+              <div className="dark:text-[#95959D] text-black1">
                 <svg
                   width="23"
                   height="13"
@@ -168,11 +172,19 @@ const PricingCard = ({ item }: any) => {
                   />
                 </svg>
               </div>
-              <p className={`text-[#95959D] font-inter text-sm`}>
+              <p
+                className={`dark:text-[#95959D] text-black1 font-inter text-sm`}
+              >
                 {cardItem?.text}
               </p>
             </div>
           ))}
+          <Link
+            href={`/processing-page?priceId=${item.priceId}`}
+            className="block w-full bg-blue-500 text-white text-center py-2 px-4 rounded hover:bg-blue-600 transition duration-200"
+          >
+            {item.btn_txt}
+          </Link>
         </div>
       </div>
       {item?.is_best_deal && (
@@ -195,10 +207,12 @@ const Pricing = () => {
             {data?.title}
           </h2>
           <p
-            className={`text-[#95959D] font-inter text-base sm:text-xl text-center max-w-[600px]`}
+            className={`dark:text-[#95959D] text-black1/70 font-inter text-base sm:text-xl text-center max-w-[600px]`}
           >
             {data?.description}{" "}
-            {data?.text && <span className="text-white">{data?.text}</span>}
+            {data?.text && (
+              <span className="dark:text-white text-black1">{data?.text}</span>
+            )}
           </p>
         </div>
         <div className="flex gap-3 items-center mt-4 justify-center">
@@ -218,7 +232,9 @@ const Pricing = () => {
           </svg>
           <p className="font-inter text-xl text-[#52DE82]">
             {data?.dollars_off}{" "}
-            <span className="text-[#95959D]">{data?.days}</span>
+            <span className="dark:text-[#95959D] text-black1/70">
+              {data?.days}
+            </span>
           </p>
         </div>
         <div>

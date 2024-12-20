@@ -10,8 +10,7 @@ const CTA = () => {
         className="object-cover w-full"
         fill
       />
-      <div className="relative hero-overlay bg-neutral bg-opacity-70"></div>
-      <div className="relative hero-content text-center text-neutral-content p-8">
+      <div className="absolute top-0 right-0 bottom-0 left-0 hero-overlay dark:bg-gray-500 bg-white dark:bg-opacity-70 bg-opacity-50 text-center p-8 flex items-center justify-center">
         <div className="flex flex-col items-center max-w-xl p-8 md:p-0">
           <h2 className="font-bold text-3xl md:text-5xl tracking-tight mb-8 md:mb-12">
             Boost your app, launch, earn
@@ -21,7 +20,7 @@ const CTA = () => {
             section...
           </p>
 
-          <button className="btn btn-primary btn-wide">
+          <button className="text-white font-semibold whitespace-nowrap text-sm px-20 py-4 rounded-lg transition-all duration-300 bg-primary">
             Get {config.appName}
           </button>
         </div>

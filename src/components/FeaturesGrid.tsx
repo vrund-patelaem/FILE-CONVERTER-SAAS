@@ -1,4 +1,6 @@
 import Image from "next/image";
+import Arrow from "@/assets/images/arrow.svg";
+import Cross from "@/assets/images/cross.svg";
 
 const data = {
   title: "Raising funds / Investments",
@@ -80,7 +82,7 @@ const FundsCard = ({ item, is_primary, is_last }: any) => {
   return (
     <div className="flex items-center relative">
       <div
-        className={`min-w-[250px] pb-6 pt-8 px-4 min-h-full border border-[#222222] rounded-[16px] bg-[#131211] flex flex-col justify-between gap-3 relative`}
+        className={`min-w-[250px] pb-6 pt-8 px-4 min-h-full border dark:border-[#222222] border-gray-300 rounded-[16px] dark:bg-[#131211] bg-[#e4e4e4] flex flex-col justify-between gap-3 relative`}
       >
         <div
           className={`flex justify-center h-full items-center ${
@@ -99,14 +101,18 @@ const FundsCard = ({ item, is_primary, is_last }: any) => {
         <div>
           <p
             className={`${
-              is_primary ? "text-white" : "text-[#A0A0A0]"
+              is_primary
+                ? "dark:text-white text-black1"
+                : "dark:text-[#A0A0A0] text-black1/60"
             }  font-inter text-xl font-bold mb-1 text-center`}
           >
             {item?.title}
           </p>
           <p
             className={`${
-              is_primary ? "text-[#49C172] font-bold" : "text-[#A0A0A0]"
+              is_primary
+                ? "text-[#49C172] font-bold"
+                : "dark:text-[#A0A0A0] text-black1/50"
             } font-inter text-[15px] text-center`}
           >
             {item?.time}
@@ -114,7 +120,7 @@ const FundsCard = ({ item, is_primary, is_last }: any) => {
         </div>
         {!is_primary && (
           <div className="absolute bottom-[-12px] right-[-12px]">
-            <Image src="/assets/cross.svg" alt="cross" width={40} height={40} />
+            <Image src={Cross} alt="cross" width={40} height={40} />
           </div>
         )}
         {!is_last && (
@@ -123,7 +129,7 @@ const FundsCard = ({ item, is_primary, is_last }: any) => {
               is_primary ? "top-3/4" : "top-1/2"
             } -right-12 z-40`}
           >
-            <Image src="/assets/arrow.svg" alt="arrow" width={75} height={40} />
+            <Image src={Arrow} alt="arrow" width={75} height={40} />
           </div>
         )}
       </div>
@@ -137,12 +143,12 @@ const FeaturesGrid = () => {
       <div className="max-w-[1440px] w-full px-4">
         <div className="w-full flex flex-col items-center">
           <h2
-            className={`font-inter text-[32px] sm:text-[48px] leading-[38px] sm:leading-[57px] font-bold text-center mb-4 max-w-[700px] text-transparent bg-gradient-to-r from-[#73B8FF] to-[#00458C] inline-block bg-clip-text`}
+            className={`font-inter text-[32px] sm:text-[48px] leading-[38px] sm:leading-[57px] font-bold text-center mb-4 max-w-[700px] text-transparent bg-gradient-to-r dark:from-[#73B8FF] from-[#38516b] dark:to-[#00458C] to-[#012346] inline-block bg-clip-text`}
           >
             {data?.title}
           </h2>
           <p
-            className={`text-[#95959D] font-inter text-base sm:text-xl text-center max-w-[600px]`}
+            className={`dark:text-[#95959D] text-black1 font-inter text-base sm:text-xl text-center max-w-[600px]`}
           >
             {data?.description}
           </p>
@@ -160,7 +166,7 @@ const FeaturesGrid = () => {
               fill="#52DE82"
             />
           </svg>
-          <p className="font-inter text-xl text-[#95959D]">
+          <p className="font-inter text-xl dark:text-[#95959D] text-black1">
             {data?.business}{" "}
             <span className="text-[#52DE82]">{data?.solo_text}</span>
           </p>

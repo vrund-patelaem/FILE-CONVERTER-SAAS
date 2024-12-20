@@ -5,15 +5,14 @@ import Image from "next/image";
 
 const Testimonial1Small = () => {
   return (
-    <section className="bg-black px-3 pb-16 pt-32 md:pb-32">
-      <div className="space-y-6 md:space-y-8 max-w-[500px] mx-auto p-3 sm:p-8 bg-[#141414] rounded-box">
+    <section className="dark:bg-black1 bg-[#e4e4e4] px-3 pb-16 pt-32 md:pb-32">
+      <div className="space-y-6 md:space-y-8 max-w-[500px] mx-auto p-3 sm:p-8 dark:bg-[#141414] bg-[#cccccc] rounded-box">
         <div className="rating !flex justify-center">
           {[...Array(5)].map((_, i) => (
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
-              fill="currentColor"
-              className="w-5 h-5 text-warning"
+              className="w-5 h-5 dark:fill-yellow-400 fill-yellow-500"
               key={i}
             >
               <path
@@ -26,7 +25,7 @@ const Testimonial1Small = () => {
         </div>
 
         <div className="text-base leading-relaxed space-y-2 max-w-md mx-auto text-center">
-          <p className="text-white">
+          <p className="dark:text-white text-black1">
             <span className="bg-warning/25 px-1.5">
               I want to avoid paying Stripe $2 for each invoice,
             </span>{" "}
@@ -34,7 +33,7 @@ const Testimonial1Small = () => {
             them.
           </p>
 
-          <p className="text-white">
+          <p className="dark:text-white text-black">
             This app is the perfect, simple solution.
           </p>
         </div>
@@ -49,9 +48,13 @@ const Testimonial1Small = () => {
           />
 
           <div>
-            <p className="font-semibold text-white">Someone Nice</p>
+            <p className="font-semibold dark:text-white text-black">
+              Someone Nice
+            </p>
 
-            <p className="text-white text-sm">37.5K followers on 𝕏</p>
+            <p className="dark:text-white text-black text-sm">
+              37.5K followers on 𝕏
+            </p>
           </div>
         </div>
       </div>

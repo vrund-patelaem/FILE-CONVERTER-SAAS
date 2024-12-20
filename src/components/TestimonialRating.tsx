@@ -3,8 +3,7 @@ const TestimonialRating = () => {
     <div className="flex -gap-1 items-center mt-auto">
       <svg
         viewBox="0 0 773 1262"
-        className="w-8  rotate-12"
-        fill="white"
+        className="w-8 dark:fill-[white] fill-[black] rotate-12"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path d="M390 5.7334C310.667 41.7334 272.533 76.6667 257.867 126.8C255.6 134.8 254.933 141.333 254.4 161.6C253.733 185.2 253.867 186.8 256.533 191.067C258 193.467 260.8 196.267 262.667 197.067C275.2 202.8 307.333 193.6 329.333 178C339.467 170.8 355.733 153.867 363.067 142.667C370 132.133 380.4 110.933 385.333 97.3334C391.867 78.8001 398.267 52.0001 398.667 40.8001C398.933 34.8001 400.4 23.7334 401.867 16.0001C405.067 0.133402 405.067 6.88146e-05 403.733 6.88146e-05C403.067 6.88146e-05 396.933 2.66674 390 5.7334Z" />
@@ -35,7 +34,9 @@ const TestimonialRating = () => {
       </svg>
 
       <div>
-        <p className="text-white text-sm text-center">1000+ happy users</p>
+        <p className="dark:text-white text-black text-sm text-center">
+          1000+ happy users
+        </p>
 
         <div className="flex flex-row justify-center gap-0 pt-1">
           {[...Array(5)].map((e, i) => (
@@ -58,9 +59,8 @@ const TestimonialRating = () => {
       </div>
 
       <svg
-        className="w-8 -rotate-12"
+        className="w-8 -rotate-12 dark:fill-[white] fill-[black]"
         viewBox="0 0 773 1262"
-        fill="white"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path d="M369.133 2.26663C371.667 12.1333 375.667 39.7333 374.6 39.0666C371.267 37.0666 378.067 67.8666 386.467 93.2C396.067 121.733 408.867 144.267 425.667 161.867C446.067 183.333 471.4 196.533 495.267 198.267C514.467 199.733 518.467 195.333 519.8 171.867C523.933 100.4 482.2 49.4666 384.2 5.99997C376.733 2.66663 370.2 -3.47677e-05 369.667 -3.47677e-05C369 -3.47677e-05 368.867 1.06663 369.133 2.26663Z" />

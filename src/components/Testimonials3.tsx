@@ -41,26 +41,28 @@ const Testimonial = ({ i }: { i: number }) => {
 
   return (
     <li key={i}>
-      <figure className="relative max-w-lg h-full p-6 md:p-10 bg-[#141414] rounded-2xl max-md:text-sm flex flex-col">
+      <figure className="relative max-w-lg h-full p-6 md:p-10 dark:bg-[#141414] bg-[#e4e4e4] rounded-2xl max-md:text-sm flex flex-col">
         <blockquote className="relative flex-1">
-          <p className="text-white leading-relaxed">{testimonial.text}</p>
+          <p className="dark:text-white text-black1 leading-relaxed">
+            {testimonial.text}
+          </p>
         </blockquote>
 
         <figcaption className="relative flex items-center justify-start gap-4 pt-4 mt-4 md:gap-8 md:pt-8 md:mt-8 border-t border-base-content/5">
           <div className="w-full flex items-center justify-between gap-2">
             <div>
-              <div className="font-medium text-white md:mb-0.5">
+              <div className="font-medium dark:text-white text-black1 md:mb-0.5">
                 {testimonial.name}
               </div>
 
               {testimonial.username && (
-                <div className="mt-0.5 text-sm text-white">
+                <div className="mt-0.5 text-sm dark:text-white text-black1">
                   @{testimonial.username}
                 </div>
               )}
             </div>
 
-            <div className="overflow-hidden rounded-full bg-base-300 shrink-0">
+            <div className="overflow-hidden rounded-full shrink-0">
               {testimonial.img ? (
                 <Image
                   className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover"
@@ -70,7 +72,7 @@ const Testimonial = ({ i }: { i: number }) => {
                   height={48}
                 />
               ) : (
-                <span className="w-10 h-10 md:w-12 md:h-12 rounded-full flex justify-center items-center text-lg font-medium bg-base-300">
+                <span className="w-10 h-10 md:w-12 md:h-12 rounded-full flex justify-center items-center text-lg font-medium dark:bg-white bg-black1 dark:text-black1 text-white">
                   {testimonial.name.charAt(0)}
                 </span>
               )}
@@ -88,12 +90,12 @@ const Testimonials3 = () => {
       <div className="py-24 sm:py-32 px-8 max-w-7xl mx-auto">
         <div className="flex flex-col text-center w-full mb-20">
           <div className="mb-8">
-            <h2 className="sm:text-5xl text-4xl font-extrabold text-white">
+            <h2 className="sm:text-5xl text-4xl font-extrabold dark:text-white text-black1">
               212 makers are already shipping faster!
             </h2>
           </div>
 
-          <p className="lg:w-2/3 mx-auto leading-relaxed text-base text-white">
+          <p className="lg:w-2/3 mx-auto leading-relaxed text-base dark:text-white text-black1">
             Don&apos;t take our word for it. Here&apos;s what they have to say
             about MicroSassFast.
           </p>

@@ -23,6 +23,9 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { validateGithubUsername } from "@/utils/validate_github";
+import DennisAvatar from "@/assets/images/dennis-avatar.svg";
+import MainLogo from "@/assets/images/logo.svg";
+import Image from "next/image";
 
 const links = [
   {
@@ -288,8 +291,8 @@ const LoginPayment = ({ user }: any) => {
               </a>
             </div>
             <div className="my-8 flex gap-4">
-              <img
-                src="/assets/dennis-avatar.svg"
+              <Image
+                src={DennisAvatar}
                 alt="profile-pic"
                 className="w-[77px] h-[77px] rounded-full"
               />
@@ -361,11 +364,10 @@ const LoginPayment = ({ user }: any) => {
                               alignItems: "flex-end",
                             }}
                           >
-                            <img
-                              src="/assets/logo.svg"
+                            <Image
+                              src={MainLogo}
                               alt="logo"
-                              height="40px"
-                              width="40px"
+                              fill={true}
                               style={{ marginTop: "30px" }}
                             />
                           </td>

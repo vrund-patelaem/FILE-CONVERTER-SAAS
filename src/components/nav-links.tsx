@@ -38,7 +38,7 @@ const NavLinks = ({ nav_links, isFooter = false }: PropsTypes) => {
         pathname === "/" && item?.link === "/" ? (
           <p
             key={index}
-            className={`text-black1 dark:text-white cursor-pointer hover:text-primary dark:hover:text-primary ${
+            className={`text-black1 dark:text-white cursor-pointer hover:text-primary dark:hover:text-primary transition-colors duration-300 ease-in-out ${
               !isFooter
                 ? "text-center flex items-center font-semibold text-lg gap-2"
                 : "font-medium"
@@ -54,7 +54,7 @@ const NavLinks = ({ nav_links, isFooter = false }: PropsTypes) => {
           <Link
             key={index}
             href={item?.link}
-            className={`text-black1 dark:text-white cursor-pointer hover:text-primary dark:hover:text-primary ${
+            className={`text-black1 dark:text-white cursor-pointer hover:text-primary dark:hover:text-primary transition-colors duration-300 ease-in-out ${
               !isFooter
                 ? "text-center flex items-center font-semibold text-lg gap-2"
                 : "font-medium"

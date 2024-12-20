@@ -63,10 +63,11 @@ const FAQ = () => {
           <p
             className={`font-inter text-[32px] sm:text-[48px] leading-[38px] sm:leading-[57px] font-bold  text-transparent bg-gradient-to-r from-[#E437F2] to-[#853FF8] inline-block bg-clip-text`}
           >
-            {data?.title} <span className="text-white">{data?.title2}</span>
+            {data?.title}{" "}
+            <span className="dark:text-white text-black1">{data?.title2}</span>
           </p>
           <p
-            className={`font-inter text-[32px] sm:text-[48px] leading-[38px] sm:leading-[57px] text-white font-bold pb-40 hidden md:block`}
+            className={`font-inter text-[32px] sm:text-[48px] leading-[38px] sm:leading-[57px] dark:text-white text-black1 font-bold pb-40 hidden md:block`}
           >
             {data?.below_title}{" "}
             <span className="text-transparent bg-gradient-to-r from-[#E437F2] to-[#853FF8] inline-block bg-clip-text">

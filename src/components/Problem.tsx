@@ -37,11 +37,13 @@ const ProblemCard = ({ item }: any) => {
         )}
       </div>
       <div>
-        <p className="text-[#D6D6DE] font-inter text-center text-xl mb-5">
+        <p className="dark:text-[#D6D6DE] text-black1/70 font-inter text-center text-xl mb-5">
           {item?.name}
         </p>
         <div className="flex gap-1 items-center justify-center">
-          <p className={`text-[#D6D6DE] font-inter text-[15px]`}>
+          <p
+            className={`dark:text-[#D6D6DE] text-black1/70 font-inter text-[15px]`}
+          >
             {item?.description}
           </p>
           <p
@@ -63,12 +65,12 @@ const Problem = () => {
       <div className="max-w-[1440px] w-full px-4 pt-32">
         <div className="w-full flex flex-col items-center">
           <h2
-            className={`font-inter text-[32px] sm:text-[48px] leading-[38px] sm:leading-[57px] font-bold text-center mb-4 text-white max-w-[600px]`}
+            className={`font-inter text-[32px] sm:text-[48px] leading-[38px] sm:leading-[57px] font-bold text-center mb-4 dark:text-white text-black1 max-w-[600px]`}
           >
             {data?.title}
           </h2>
           <p
-            className={`text-[#95959D] font-inter text-base sm:text-xl text-center max-w-[600px]`}
+            className={`dark:text-[#95959D] text-black1/70 font-inter text-base sm:text-xl text-center max-w-[600px]`}
           >
             {data?.description}
           </p>

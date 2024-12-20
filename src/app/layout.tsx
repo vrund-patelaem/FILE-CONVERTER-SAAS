@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import { Inter } from "next/font/google";
 import { Viewport } from "next";
 import { getSEOTags } from "@/libs/seo";
-import { ClerkProvider } from '@clerk/nextjs';
+import { ClerkProvider } from "@clerk/nextjs";
 import { Providers } from "@/components/providers";
 
 import "@/assets/styles/globals.scss";
@@ -23,9 +23,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body className={font.className}>
         <Providers>
           <ClerkProvider>
-            <main className="min-h-screen bg-background">
-              {children}
-            </main>
+            <main className="min-h-screen bg-background">{children}</main>
           </ClerkProvider>
         </Providers>
       </body>

@@ -1,10 +1,11 @@
 import Image from "next/image";
+import logo from "@/assets/images/logo.svg";
 
 const Logo = ({ isLarge = false }) => {
   return (
     <div className="flex items-center gap-1">
       <Image
-        src="/assets/logo.svg"
+        src={logo}
         width={24}
         height={24}
         layout="lazy"

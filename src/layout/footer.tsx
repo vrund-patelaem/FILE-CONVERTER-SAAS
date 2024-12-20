@@ -4,6 +4,8 @@ import { Logo } from "@/components";
 import Link from "next/link";
 import NavLinks from "@/components/nav-links";
 import { Telegram, Youtube } from "@/icons";
+import footerBg from "@/assets/images/footer-bg1.svg";
+import footerBgDark from "@/assets/images/footer-bg2.svg";
 
 const nav_links1 = [
   {
@@ -58,14 +60,14 @@ const Footer = () => {
   return (
     <div className="relative flex justify-center items-center w-full">
       <Image
-        src="/assets/footer-bg1.svg"
+        src={footerBg}
         alt="background"
         fill
         objectFit="cover"
         className="z-0 block dark:hidden"
       />
       <Image
-        src="/assets/footer-bg2.svg"
+        src={footerBgDark}
         alt="background"
         fill
         objectFit="cover"

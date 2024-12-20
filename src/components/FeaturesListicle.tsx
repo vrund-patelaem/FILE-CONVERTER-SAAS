@@ -41,13 +41,13 @@ const FeaturesListicle = () => {
       <div className="max-w-[1440px] w-full px-4 sm:px-8">
         <div className="w-full flex flex-col items-center">
           <h2
-            className={`font-inter text-[32px] sm:text-[48px] leading-[38px] sm:leading-[57px] font-bold text-center mb-4 text-white max-w-[600px]"
+            className={`font-inter text-[32px] sm:text-[48px] leading-[38px] sm:leading-[57px] font-bold text-center mb-4 dark:text-white text-black1 max-w-[600px]"
         }`}
           >
             {data?.title}
           </h2>
           <p
-            className={`text-[#95959D] font-inter text-base sm:text-xl text-center max-w-[600px]`}
+            className={`dark:text-[#95959D] text-black1/70 font-inter text-base sm:text-xl text-center max-w-[600px]`}
           >
             {data?.description}
           </p>
@@ -56,7 +56,7 @@ const FeaturesListicle = () => {
           {data?.money_comparison?.map((item: any, index: number) => (
             <div
               key={index}
-              className={`max-w-[350px] scale-1 hover:scale-[1.05] transition-all duration-300 w-full min-w-[300px] py-6 px-4 min-h-[300px] rounded-[16px] bg-[#131211] flex flex-col justify-between gap-3 ${
+              className={`max-w-[350px] scale-1 hover:scale-[1.05] transition-all duration-300 w-full min-w-[300px] py-6 px-4 min-h-[300px] rounded-[16px] bg-[#e4e4e4] dark:bg-[#131211] flex flex-col justify-between gap-3 ${
                 !item?.is_primary ? "" : "border border-[#FEE826]"
               }`}
             >
@@ -74,7 +74,7 @@ const FeaturesListicle = () => {
                 )}
               </div>
               <div>
-                <p className="text-[#D6D6DE] font-inter text-xl">
+                <p className="dark:text-[#D6D6DE] text-black1/70 font-inter text-xl">
                   {item?.name}
                 </p>
                 <div className="flex gap-1 items-center">
@@ -86,7 +86,9 @@ const FeaturesListicle = () => {
                     {item?.price}
                   </p>
                   {!item.is_primary && (
-                    <p className="text-[#D6D6DE] font-inter text-xl">/ month</p>
+                    <p className="dark:text-[#D6D6DE] text-black1/70 font-inter text-xl">
+                      / month
+                    </p>
                   )}
                 </div>
               </div>
