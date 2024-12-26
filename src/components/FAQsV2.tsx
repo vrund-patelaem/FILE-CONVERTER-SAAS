@@ -58,7 +58,7 @@ const StaticData = {
 
 const FaqsV2 = ({ data, isHomePage }: any) => {
   const StaticFAQs = StaticData.faqs;
-  const faqData = data.length > 0 ? data : StaticFAQs;
+  const faqData = data?.length > 0 ? data : StaticFAQs;
 
   const [hasMounted, setHasMounted] = useState(false);
 

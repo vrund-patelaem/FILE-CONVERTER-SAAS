@@ -1,68 +1,130 @@
 "use client";
 import Image from "next/image";
+import { Logo } from "@/components";
 import Link from "next/link";
-import ButtonSignin from "./ButtonSignin";
+import NavLinks from "@/components/nav-links";
+import { Telegram, Youtube } from "@/icons";
+import footerBg from "@/assets/images/footer-bg1.svg";
+import footerBgDark from "@/assets/images/footer-bg2.svg";
 
-const data = {
-  website_name: "MicroSaaSFast",
-  links: [
-    {
-      link: "#pricing",
-      title: "Pricing",
-    },
-    {
-      link: "/blog",
-      title: "Blog",
-    },
-    {
-      link: "/tos",
-      title: "Terms of services",
-    },
-    {
-      link: "/privacy-policy",
-      title: "Privacy policy",
-    },
-  ],
-  description: "Ship your startup in days, not weeks",
-  copyright: "Copyright © 2024 - All rights reserved",
-  logo: {
-    url: "https://res.cloudinary.com/spadasoft/image/upload/v1720100584/logo_2bc425d794.png",
+const nav_links1 = [
+  {
+    title: "Demo",
+    link: "/",
   },
-};
+  {
+    title: "Pricing",
+    link: "/",
+  },
+  {
+    title: "Support",
+    link: "#",
+  },
+  {
+    title: "Documentation",
+    link: "https://docs.microsaasfast.me/",
+  },
+  {
+    title: "Affiliates - Earn up to $123 per sale",
+    link: "#",
+  },
+];
+
+const nav_links2 = [
+  {
+    title: "Terms of services",
+    link: "/tos",
+  },
+  {
+    title: "Privacy Policy",
+    link: "/privacy-policy",
+  },
+  {
+    title: "Licences",
+    link: "#",
+  },
+];
+
+const data = [
+  {
+    link: "https://www.google.com",
+    icon: <Youtube />,
+  },
+  {
+    link: "https://www.google.com",
+    icon: <Telegram />,
+  },
+];
 
 const Footer = () => {
   return (
-    <div className="flex justify-center items-center w-full bg-black">
-      <div className="max-w-[1440px] w-full flex justify-between items-center flex-col md:flex-row gap-16 md:gap-4 px-4 sm:px-12 py-6 border-t border-[#1F1F1F]">
-        <div className="order-last md:order-first">
-          <Link href="/" className="flex items-center mb-4">
-            {data?.logo && (
-              <Image src={data?.logo?.url} width={40} height={40} alt="logo" />
-            )}
-            <p className="text-white text-[15px] font-bold font-inter">
-              {data?.website_name}
-            </p>
-          </Link>
-          <p className="font-inter text-xs text-[#D4D4D4]">
-            {data?.description}
-          </p>
-          <p className="font-inter text-xs text-[#D4D4D4]">{data?.copyright}</p>
-        </div>
-        <div className="">
-          <div className={`flex md:items-center flex-col md:flex-row gap-8`}>
-            {data?.links?.map((item: any, index: number) => (
-              <Link
-                key={index}
-                href={item?.link}
-                className={`text-[15px] text-white text-center font-inter cursor-pointer hover:text-primary`}
-              >
-                {item?.title}
-              </Link>
-            ))}
+    <div className="relative flex justify-center items-center w-full">
+      <Image
+        src={footerBg}
+        alt="background"
+        fill
+        objectFit="cover"
+        className="z-0 block dark:hidden"
+      />
+      <Image
+        src={footerBgDark}
+        alt="background"
+        fill
+        objectFit="cover"
+        className="z-0 hidden dark:block"
+      />
+      <div className="relative z-10 max-w-[1440px] w-full h-full px-4 sm:px-12 py-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 h-full gap-x-4 gap-y-12">
+          <div className="flex flex-col !min-h-[inherit] justify-between gap-8">
+            <Link href="/">
+              <Logo />
+            </Link>
+            <div>
+              <p className="text-xs text-[#7B7E83] dark:text-[#808389] font-medium">
+                Launch your SaaS in days, not weeks
+              </p>
+              <p className="text-xs text-[#7B7E83] dark:text-[#808389] font-medium">
+                Copyright © 2025 - All rights reserved
+              </p>
+            </div>
           </div>
-        </div>
-        <div className="order-first md:order-last">
-          <ButtonSignin text="Login" />
+          <div className="sm:order-3 xl:order-2">
+            <p className="uppercase text-[#86898E] dark:text-[#808389] font-semibold text-base mb-8">
+              Links
+            </p>
+            <NavLinks nav_links={nav_links1} isFooter={true} />
+          </div>
+          <div className="sm:order-last xl:order-3">
+            <p className="uppercase text-[#86898E] dark:text-[#808389] font-semibold text-base mb-8">
+              Legal
+            </p>
+            <NavLinks nav_links={nav_links2} isFooter={true} />
+          </div>
+          <div className="sm:order-2 xl:order-last">
+            <p className="uppercase text-[#86898E] dark:text-[#808389] font-semibold text-base mb-8">
+              BY THE MICRO SAAS FAST MAKER
+            </p>
+            <p className="text-black1 dark:text-white font-medium text-base mb-6">
+              DennisBabych
+            </p>
+            <p className="text-black1 dark:text-white font-medium text-base mb-6">
+              DesignFast2
+            </p>
+            <div className="flex items-center gap-4">
+              {data.map((item, index) => (
+                <Link
+                  key={index}
+                  href={item?.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <div className="shadow-lg bg-white h-[32px] flex items-center justify-center px-3 rounded-[8px]">
+                    {item?.icon}
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>

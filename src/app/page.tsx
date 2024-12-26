@@ -7,6 +7,7 @@ import FAQ from "@/components/FAQ";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
+import Testimonials from "@/components/Testimonials";
 
 export default function Home() {
   return (
@@ -17,6 +18,7 @@ export default function Home() {
       <div className="min-h-[100vh] flex flex-col justify-between w-full bg-white dark:bg-[#010814]">
         <Hero />
         <Problem />
+        <Testimonials />
         {/* <FeaturesGrid /> */}
         <Features />
         <Pricing />

@@ -10,6 +10,7 @@ import {
   Pricing,
   Feedback,
   OpenNav,
+  Blog,
 } from "@/icons";
 import { useTheme } from "next-themes";
 import { useEffect } from "react";
@@ -34,9 +35,9 @@ const nav_links = [
     link: "/",
   },
   {
-    icon: <Feedback />,
-    title: "Feedback",
-    link: "/",
+    icon: <Blog width={18} height={18} />,
+    title: "Blog",
+    link: "/blog",
   },
 ];
 

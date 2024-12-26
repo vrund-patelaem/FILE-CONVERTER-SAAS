@@ -30,7 +30,7 @@ const BlogListingNew = ({ articles }: props) => {
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
-        {articles.slice(0, visiblePosts).map((post: any, index: any) => (
+        {articles?.slice(0, visiblePosts).map((post: any, index: any) => (
           <Link
             href={`/blog/${post.slug}`}
             key={index}
