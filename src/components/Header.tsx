@@ -32,7 +32,7 @@ const nav_links = [
   {
     icon: <Pricing />,
     title: "Pricing",
-    link: "#pricing",
+    link: "/",
   },
   {
     icon: <Blog width={18} height={18} />,

@@ -33,11 +33,11 @@ const nav_links1 = [
 const nav_links2 = [
   {
     title: "Terms of services",
-    link: "/tos",
+    link: "https://elegant-nightshade-79e.notion.site/Terms-Services-4335df481a50486ca26c81e699a2fbf1",
   },
   {
     title: "Privacy Policy",
-    link: "/privacy-policy",
+    link: "https://elegant-nightshade-79e.notion.site/Privacy-policy-f2a3142bfb8c4b16b80369c19263c23a",
   },
   {
     title: "Licences",

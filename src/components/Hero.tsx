@@ -1,83 +1,161 @@
+"use client";
+import { IconButton } from "@/components";
+import { RightArrow } from "@/icons";
+import heroBg from "@/assets/images/hero-bg1.svg";
+import heroBgDark from "@/assets/images/hero-bg2.svg";
 import Image from "next/image";
-import TestimonialsAvatars from "./TestimonialsAvatars";
-import config from "@/config";
-import TestimonialRating from "./TestimonialRating";
+import toolImg from "@/assets/images/tools1.png";
+import toolImgDark from "@/assets/images/tools2.png";
 
-const data = {
-  title1: "Launch your",
-  title2: "SaaS startup",
-  title3: "in 3 month,",
-  title4: "1 day",
-  description:
-    "This NEXT.js boilerplate wrapper with pre build modules is all what you need to ship your SaaS, AI tool or a startup today and start making money FAST",
+const avatars: {
+  alt: string;
+  src: string;
+}[] = [
+  {
+    alt: "User",
+    src: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3276&q=80",
+  },
+  {
+    alt: "User",
+    src: "https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80",
+  },
+  {
+    alt: "User",
+    src: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80",
+  },
+  {
+    alt: "User",
+    src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80",
+  },
+  {
+    alt: "User",
+    src: "https://images.unsplash.com/photo-1488161628813-04466f872be2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3376&q=80",
+  },
+];
+
+// Group of customer avatars
+const TestimonialsAvatars = ({ priority }: { priority?: boolean }) => {
+  return (
+    <div className="flex flex-col sm:flex-row items-start gap-3">
+      <div className="flex -space-x-2">
+        {avatars.map((image, i) => (
+          <Image
+            key={i}
+            src={image.src}
+            alt={image.alt}
+            priority={priority}
+            width={48}
+            height={48}
+            className="inline-block size-12 rounded-full ring-2 ring-white"
+          />
+        ))}
+      </div>
+
+      {/* RATING */}
+      <div className="flex flex-col justify-center items-center md:items-start gap-1">
+        <div className="rating flex">
+          {[...Array(5)].map((_, i) => (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              className="w-5 h-5 text-yellow-500"
+              key={i}
+            >
+              <path
+                fillRule="evenodd"
+                d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
+                clipRule="evenodd"
+              />
+            </svg>
+          ))}
+        </div>
+
+        <div className="text-base font-medium text-[#7B7E83] dark:text-[#808389]">
+          <span className="text-black1 dark:text-white">25</span> makers ship
+          faster
+        </div>
+      </div>
+    </div>
+  );
 };
 
-const Hero = () => {
+const HeroV2 = () => {
   return (
-    <section className="pb-8 pt-32 dark:bg-black bg-[#e4e4e4] lg:pb-20">
-      <div className="max-w-[1440px] w-full px-4 sm:px-12 mx-auto">
+    <div className="relative flex justify-center items-center w-full">
+      <Image
+        src={heroBg}
+        alt="background"
+        fill
+        objectFit="cover"
+        priority={true}
+        className="z-0 block dark:hidden"
+      />
+      <Image
+        src={heroBgDark}
+        alt="background"
+        fill
+        objectFit="cover"
+        priority={true}
+        className="z-0 hidden dark:block"
+      />
+      <div className="relative z-10 max-w-[1440px] w-full px-4 sm:px-12 pb-12 mt-40">
         <div className="flex justify-between lg:items-center flex-col lg:flex-row gap-8">
-          <div className="lg:w-[45%] max-w-[450px]">
-            <TestimonialRating />
-            <h1 className="font-inter text-[48px] leading-[57px] font-bold mt-4 dark:text-white text-black1">
-              {data?.title1}{" "}
-              <span className="text-transparent bg-gradient-to-r from-[#E437F2] to-[#853FF8] bg-clip-text">
-                {data?.title2}
+          <div className="lg:w-[45%] max-w-[529px]">
+            <div className="text-[#7B7E83] dark:text-white mb-4 px-[5px] py-2 gap-2 text-sm font-medium border border-[#1AAB12] rounded-[10px] w-fit">
+              <span
+                className="text-white bg-[#1AAB12] py-1 px-2 rounded-[5px] font-semibold"
+                style={{ lineHeight: "none" }}
+              >
+                New
               </span>{" "}
-              <span className="line-through">{data?.title3}</span>{" "}
-              {data?.title4}
+              MicroSaaS Fast v2 is now availabe 🚀
+            </div>
+            <h1 className="text-[42px] leading-[50px] font-bold text-black1 dark:text-white">
+              Launch Your SaaS <span className="">Startup </span>
+              <span className="line-through text-[#7B7E83] dark:text-[#4D525A]">
+                in 3 Month,
+              </span>{" "}
+              1 Day
             </h1>
-            <p className="dark:text-[#95959D] text-black1/70 font-inter text-xl my-4">
-              {data?.description}
+            <p className="text-[#7B7E83] dark:text-[#808389] font-inter text-base font-medium my-6">
+              This NEXT.js boilerplate and SaaS starter kit with pre build
+              modules is all what you need to ship your SaaS, AI tool or a
+              startup in 38 min and start making money FAST
             </p>
-            <button className="text-white font-inter font-bold px-8 py-3 rounded-[42px] w-full scale-1 hover:scale-[1.05] transition-all duration-300 bg-primary">
-              Get {config.appName}
-            </button>
-            {/* <TestimonialsAvatars priority={true} /> */}
+            <div className="w-fit">
+              <IconButton text="Get MicroSaaSFast" icon={<RightArrow />} />
+            </div>
+            <p className="mt-4 mb-8 text-xs font-semibold text-[#7B7E83] dark:text-[#5A5E66]">
+              For Developers{"   "}|{"   "}Entrepreneurs{"   "}|{"   "}No-code
+              lovers
+            </p>
+            <TestimonialsAvatars />
           </div>
-          <div>
+          <div className="">
             <Image
-              src="https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3540&q=80"
-              alt="Product Demo"
-              className="w-full"
+              src={toolImg}
+              alt="tools"
+              width={550}
+              height={550}
               priority={true}
-              width={500}
-              height={500}
+              sizes="(max-width: 600px) 450px, 550px"
+              className="object-contain lg:w-[550px] mx-auto block dark:hidden"
+            />
+            <Image
+              src={toolImgDark}
+              alt="tools"
+              width={550}
+              height={550}
+              priority={true}
+              sizes="(max-width: 600px) 450px, 550px"
+              className="object-contain lg:w-[550px] mx-auto hidden dark:block"
             />
           </div>
         </div>
       </div>
-      {/*<div className="flex flex-col gap-10 lg:gap-14 items-center justify-center text-center lg:text-left lg:items-start">
-        <h1 className="font-inter text-[48px] leading-[57px] font-bold text-white">
-          {data?.title1}{" "}
-          <span className="text-transparent bg-gradient-to-r from-[#E437F2] to-[#853FF8] bg-clip-text">
-            {data?.title2}
-          </span>{" "}
-          <span className="line-through">{data?.title3}</span> {data?.title4}
-        </h1>
-        <p className="text-[#95959D] font-inter text-xl my-4">
-          {data?.description}
-        </p>
-
-        <button className="btn btn-primary btn-wide">
-          Get {config.appName}
-        </button>
-
-        
-      </div>
-
-      <div className="lg:w-full">
-        <Image
-          src="https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3540&q=80"
-          alt="Product Demo"
-          className="w-full"
-          priority={true}
-          width={500}
-          height={500}
-        />
-      </div> */}
-    </section>
+    </div>
   );
 };
 
-export default Hero;
+export default HeroV2;

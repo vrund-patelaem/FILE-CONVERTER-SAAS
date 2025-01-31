@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { Heading, Logo } from "@/components";
 import { Slider } from "@/components/ui/slider";
 import { cn } from "@/helpers/utils";
+import { Save } from "lucide-react";
 
 const data = [
   {
@@ -87,7 +88,7 @@ const MoneyCard = ({ item }: MoneyCardProps) => {
   );
 };
 
-const Money = () => {
+const SaveMoney = () => {
   return (
     <div className="flex justify-center items-center w-full bg-white dark:bg-[#010814] my-16">
       <div className="max-w-[1440px] w-full px-4 sm:px-12">
@@ -125,4 +126,4 @@ const Money = () => {
   );
 };
 
-export default Money;
+export default SaveMoney;
