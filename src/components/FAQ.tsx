@@ -1,4 +1,7 @@
 "use client";
+
+import React, { useState, useEffect } from "react";
+import { Heading } from "@/components";
 import {
   Accordion,
   AccordionContent,
@@ -6,11 +9,9 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-const data = {
-  title: "A frequently",
-  title2: "asked questions",
-  below_title: "Ship your micro SaaS in",
-  below_title2: "days not weeks!",
+const StaticData = {
+  title: "A frequently asked questions",
+  below_title: "Have another question? Contact me on X or by email",
   faqs: [
     {
       id: 1,
@@ -55,39 +56,46 @@ const data = {
   ],
 };
 
-const FAQ = () => {
+const Faq = ({ data, isHomePage }: any) => {
+  const StaticFAQs = StaticData.faqs;
+  const faqData = data?.length > 0 ? data : StaticFAQs;
+
+  const [hasMounted, setHasMounted] = useState(false);
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
+  if (!hasMounted) {
+    return null; // Avoid rendering until after the initial mount
+  }
+
   return (
-    <div className="flex justify-center items-center py-24 w-full">
-      <div className="max-w-[1440px] w-full px-4 sm:px-12 flex flex-col md:flex-row gap-8">
-        <div className="flex flex-col justify-between md:min-h-full md:w-[45%] pt-5">
-          <p
-            className={`font-inter text-[32px] sm:text-[48px] leading-[38px] sm:leading-[57px] font-bold  text-transparent bg-gradient-to-r from-[#E437F2] to-[#853FF8] inline-block bg-clip-text`}
-          >
-            {data?.title}{" "}
-            <span className="dark:text-white text-black1">{data?.title2}</span>
-          </p>
-          <p
-            className={`font-inter text-[32px] sm:text-[48px] leading-[38px] sm:leading-[57px] dark:text-white text-black1 font-bold pb-40 hidden md:block`}
-          >
-            {data?.below_title}{" "}
-            <span className="text-transparent bg-gradient-to-r from-[#E437F2] to-[#853FF8] inline-block bg-clip-text">
-              {data?.below_title2}
-            </span>
-          </p>
-        </div>
-        <div className="md:w-[55%]">
+    <div className="flex justify-center items-center bg-white dark:bg-[#010814] my-16 w-full">
+      <div className="max-w-[1440px] w-full px-4 sm:px-12">
+        {isHomePage && (
+          <div className="max-w-[624px] mx-auto mb-16">
+            <Heading
+              title="A Frequently Asked Questions"
+              desc="Have another question? Contact me on X or by email"
+            />
+          </div>
+        )}
+        <div>
           <Accordion defaultValue={["item-0"]} type="multiple">
-            {data?.faqs?.map((item: any, index: number) => (
+            {faqData?.map((item: any, index: number) => (
               <AccordionItem
                 key={index}
                 value={`item-${index}`}
-                className="border-[#95959D] pt-6 pb-4"
+                className="shadow-2xl dark:shadow-none border dark:border-[#373C53] py-2 px-6 rounded-[12px] bg-white dark:bg-gradient-to-r from-[#1E242D] to-[#0B111B] h-full transition-all duration-300 mb-4"
               >
-                <AccordionTrigger className="text-white font-inter text-start font-bold text-base hover:no-underline">
+                <AccordionTrigger className="text-start font-semibold text-xl hover:no-underline">
                   {item?.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-[#95959D] text-base font-normal">
-                  <div dangerouslySetInnerHTML={{ __html: item?.answer }} />
+                <AccordionContent className="mt-2">
+                  <div className="text-[#010610A6] dark:text-[#808389] font-medium text-base sm:mr-12 mb-4">
+                    <div dangerouslySetInnerHTML={{ __html: item?.answer }} />
+                  </div>
                 </AccordionContent>
               </AccordionItem>
             ))}
@@ -98,4 +106,4 @@ const FAQ = () => {
   );
 };
 
-export default FAQ;
+export default Faq;

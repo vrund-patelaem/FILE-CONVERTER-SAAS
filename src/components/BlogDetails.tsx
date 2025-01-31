@@ -1,6 +1,6 @@
 "use client";
 import React, { useMemo } from "react";
-import FaqsV2 from "./FAQsV2";
+import Faq from "./FAQ";
 import BlogSpotlight from "./BlogSpotlight";
 import BlogMoreArticles from "./BlogMoreArticles";
 import "../assets/styles/blog-page.scss";
@@ -45,7 +45,7 @@ const BlogDetails = ({ postDetails, allPosts }: any) => {
           }}
         />
         <div id="blog-detail-faq">
-          <FaqsV2 data={faqArray} isHomePage={false} />
+          <Faq data={faqArray} isHomePage={false} />
         </div>
       </div>
       <BlogMoreArticles
