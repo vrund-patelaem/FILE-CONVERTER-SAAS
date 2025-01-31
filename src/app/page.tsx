@@ -1,12 +1,12 @@
 import { Suspense } from "react";
-import Header from "@/components/Header"
+import Header from "@/components/Header";
+import Hero from "@/components/Hero";
 import Features from "@/components/Features";
 import Pricing from "@/components/Pricing";
-import Faq from "@/components/FAQ";
+import FAQ from "@/components/FAQ";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
-import Hero from "@/components/Hero";
-import Testimonials from "@/components/Testimonials";
+import Comparison from "@/components/Comparison";
 
 export default function Home() {
   return (
@@ -14,20 +14,15 @@ export default function Home() {
       <Suspense>
         <Header />
       </Suspense>
-      <div className="min-h-[100vh] flex flex-col justify-between w-full bg-white dark:bg-[#010814]">
+      <main>
         <Hero />
-        <Testimonials />
-        {/* <FeaturesGrid /> */}
+      <Comparison/>
         <Features />
         <Pricing />
-
-        <Faq />
+        <FAQ />
         <CTA />
-      </div>
-
-      <Suspense>
-        <Footer />
-      </Suspense>
+      </main>
+      <Footer />
     </>
   );
 }
