@@ -1,41 +1,28 @@
+import Dashboard from '@/components/Dashboard'
+import PricingSection from '@/components/PricingSection'
+import ThankYouPopup from '@/components/ThankyouPopUp'
 import { auth } from '@clerk/nextjs/server'
-import { redirect } from 'next/navigation';
-import ThankYouPopup from '@/components/ThankyouPopUp';
-import { getSubscriptionByUserId } from '../api/actions';
-import PricingSection from '@/components/PricingSection';
-import StripePortalButton from '@/components/StripePortalButton';
-import {Button} from "@/components/ui/button";
+import { redirect } from 'next/navigation'
 
-export default async function Dashboard() {
-  const { userId } = auth();
-  
-  if (!userId) {
-    redirect('/sign-in');
-  }
+export default async function DashboardPage() {
+	const { userId } = auth()
 
-const sub = await getSubscriptionByUserId(userId)
-const isInactive = sub ? sub?.sub_status !== 'active' : true
+	if (!userId) {
+		redirect('/sign-in')
+	}
 
-if (isInactive) {
-  redirect('/processing-page');
-}
+	const isInactive = false
 
-  return (
-    <div>
-          {userId} 
-          <br />
-          {sub?.sub_status}
-          <br />
-          {isInactive}
-          <br />
-
-          {isInactive ? <PricingSection /> : <div>
-            <StripePortalButton />
-            <ThankYouPopup />
-          
-            </div>}
-    </div>
-    
-  );
-  
+	return (
+		<div>
+			{isInactive ? (
+				<PricingSection />
+			) : (
+				<div className='flex w-full bg-white dark:bg-[#010814] min-h-screen flex-col gap-4'>
+					<Dashboard />
+					<ThankYouPopup />
+				</div>
+			)}
+		</div>
+	)
 }

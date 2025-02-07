@@ -1,11 +1,11 @@
 "use client";
 
 import PriceItem from "@/components/PriceItem";
+import config from "@/config";
 import { handleCheckoutProcess } from "@/helpers/checkout";
 import { SignUp, useUser } from "@clerk/nextjs";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useMemo } from "react";
-import config from "@/config";
 
 export default function Home() {
   const { isSignedIn, user } = useUser();
@@ -16,6 +16,8 @@ export default function Home() {
   const priceId = searchParams.get("priceId");
 
   const priceIdFromLocal = useMemo(() => {
+    if (typeof window === 'undefined') return null;
+    
     let id = localStorage.getItem("priceId");
 
     if (!id && !!priceId) {

@@ -29,7 +29,7 @@
     "@strapi/blocks-react-renderer": "^1.0.1",
     "@stripe/stripe-js": "^4.7.0",
     "@types/wpapi": "^1.1.4",
-    "axios": "^1.6.8",
+    "axios": "^1.7.9",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "eslint": "^8",
