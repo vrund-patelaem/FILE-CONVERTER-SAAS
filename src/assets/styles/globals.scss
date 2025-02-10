@@ -63,3 +63,13 @@
 	color: #fff;
 	display: none;
 }
+
+.glass {
+	background: #121a32;
+	background: linear-gradient(
+		155deg,
+		rgba(5, 0, 107, 0) 0%,
+		rgba(0, 50, 69, 0.18) 57%,
+		rgba(0, 30, 54, 0.24) 100%
+	);
+}
