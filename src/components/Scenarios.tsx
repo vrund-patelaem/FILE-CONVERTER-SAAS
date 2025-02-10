@@ -27,15 +27,15 @@ const Scenarios = () => {
 	const availableScenarios: ScenarioTemplate[] = [
 		{
 			id: 3576573,
-			image: '/scenarios/openAI.png',
-			name: 'OpenAI Scenario',
-			description: 'This is a scenario template for OpenAI',
+			image: '/scenarios/make.png',
+			name: 'OpenAI Scenario Make',
+			description: 'This is a scenario template for OpenAI using Make',
 			fields: ['apiKey', 'apiOrg', 'assistantId'],
 			route: '/api/scenarios/openAIAssistant',
 		},
 		{
-			id: 'yDrAJwknRAzEhSRI',
-			image: '/scenarios/openAI.png',
+			id: 'NgaUitI4c7KrjBbP',
+			image: '/scenarios/n8n.png',
 			name: 'OpenAI Scenario n8n',
 			description: 'This is a scenario template for OpenAI using n8n',
 			fields: ['apiKey', 'apiOrg', 'assistantId'],
@@ -122,6 +122,11 @@ const Scenarios = () => {
 								{scenario.name}
 							</p>
 
+							<p className='text-sm w-full text-center text-gray-400'>
+								{scenario.description}
+							</p>
+
+
 							<Formik
 								initialValues={initialValues}
 								validationSchema={generateValidationSchema(scenario.fields)}
@@ -187,9 +192,13 @@ const Scenarios = () => {
 								)}
 							</Button>
 						</div>
-						<div className='flex flex-col gap-2'>
-							<p>Assistant ID: {project.assistant_id}</p>
-							<p>Webhook Link: {project.webhookLink}</p>
+						<div className='flex w-full flex-col gap-2'>
+							<p className='w-full truncate'>
+								Assistant ID: {project.assistant_id}
+							</p>
+							<p className='w-full truncate'>
+								Webhook Link: {project.webhookLink}
+							</p>
 						</div>
 						<Link href={`/chat/${project.id}`} className='w-full'>
 							<Button className='w-full mt-2'>Go to chat</Button>

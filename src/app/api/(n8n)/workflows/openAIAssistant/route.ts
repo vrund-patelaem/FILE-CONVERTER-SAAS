@@ -125,15 +125,21 @@ export async function POST(req: Request) {
 		if (!newid) {
 			throw new Error('Failed to create new workflow')
 		}
-
-		// Getting webhook URL from the new workflow
-		const webhookNode = updatedNodes.find(
-			node => node.type === 'n8n-nodes-base.webhook'
-		)
-		console.log('webhookNode', webhookNode)
 		const webhookLink = `${N8N_WEBHOOK_URL}/${webhookPath}`
 
+		// Activating the new workflow
+		const activateWorkflow = await axios.post(
+			`${N8N_BASE_URL}/workflows/${newid}/activate`,
+			{},
+			{ headers }
+		)
+
+		if (!activateWorkflow) {
+			throw new Error('Failed to activate workflow')
+		}
+
 		// 6. Saving project to database
+
 		const dbProject = await prisma.project.create({
 			data: {
 				connection_id: credentialsId,
