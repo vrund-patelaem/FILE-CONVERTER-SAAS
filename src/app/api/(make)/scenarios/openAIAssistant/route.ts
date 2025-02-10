@@ -146,9 +146,9 @@ export async function POST(req: Request) {
 		// 7. Store project details in database
 		const dbProject = await prisma.project.create({
 			data: {
-				connection_id: connectionId,
-				webhook_id: webhookId,
-				scenario_id: newid,
+				connection_id: connectionId.toString(),
+				webhook_id: webhookId.toString(),
+				scenario_id: newid.toString(),
 				user_clerk_id: user.id,
 				webhookLink: webhookLink,
 				assistant_id: assistantId,

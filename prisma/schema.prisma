@@ -21,17 +21,18 @@ model Subscription {
 }
 
 model Project {
-  id            String   @id @default(uuid())
+  id            String  @id @default(uuid())
   connection_id String
   webhook_id    String
   scenario_id   String
   assistant_id  String?
   user_clerk_id String
   type          String
-  status        String   @default("default")
-  webhookLink   String
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  status        String  @default("default")
+
+  webhookLink String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model Audiences {
