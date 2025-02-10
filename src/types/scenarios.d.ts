@@ -1,6 +1,6 @@
 // Interface for scenario template
 interface ScenarioTemplate {
-	id: number
+	id: number | string
 	image: string
 	name: string
 	description: string

@@ -18,6 +18,7 @@ const nextConfig = {
 			'fast-strapi-cms-651b34b82e95.herokuapp.comhttps',
 			'secure.gravatar.com',
 			'img.clerk.com',
+			'3.73.130.136',
 		],
 	},
 }

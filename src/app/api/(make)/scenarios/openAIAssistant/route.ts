@@ -14,7 +14,7 @@ interface FlowModule {
 
 export async function POST(req: Request) {
 	try {
-		const { scenarioId, apiKey, apiOrg, assistantId } = await req.json()
+		const { id, apiKey, apiOrg, assistantId } = await req.json()
 		const user = await currentUser()
 
 		if (!user) {
@@ -69,7 +69,7 @@ export async function POST(req: Request) {
 
 		// 3. Get the blueprint of the source scenario
 		const blueprintResponse = await axios.get(
-			`${BASE_URL}/scenarios/${scenarioId}/blueprint`,
+			`${BASE_URL}/scenarios/${id}/blueprint`,
 			{
 				headers: { Authorization: `Token ${MAKE_API_KEY}` },
 			}
@@ -128,15 +128,15 @@ export async function POST(req: Request) {
 			}
 		)
 
-		const newScenarioId = createResponse.data.scenario.id
+		const newid = createResponse.data.scenario.id
 
-		if (!newScenarioId) {
+		if (!newid) {
 			throw new Error('Failed to create new scenario')
 		}
 
 		// 6. Activate the newly created scenario
 		await axios.post(
-			`${BASE_URL}/scenarios/${newScenarioId}/start`,
+			`${BASE_URL}/scenarios/${newid}/start`,
 			{},
 			{
 				headers: { Authorization: `Token ${MAKE_API_KEY}` },
@@ -148,11 +148,11 @@ export async function POST(req: Request) {
 			data: {
 				connection_id: connectionId,
 				webhook_id: webhookId,
-				scenario_id: newScenarioId,
+				scenario_id: newid,
 				user_clerk_id: user.id,
 				webhookLink: webhookLink,
 				assistant_id: assistantId,
-				type: 'openai',
+				type: 'make',
 				status: 'active',
 			},
 		})
@@ -164,7 +164,7 @@ export async function POST(req: Request) {
 		// Return success response with necessary IDs
 		return NextResponse.json({
 			success: true,
-			scenarioId: newScenarioId,
+			id: newid,
 			webhookLink,
 			connectionId,
 		})

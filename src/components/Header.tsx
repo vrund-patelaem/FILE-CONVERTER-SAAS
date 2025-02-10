@@ -9,7 +9,7 @@ import {
 	SheetTitle,
 	SheetTrigger,
 } from '@/components/ui/sheet'
-import { Blog, Moon, OpenNav, Pricing, RightArrow, Sun } from '@/icons'
+import { Blog, Demo, Moon, OpenNav, Pricing, RightArrow, Sun } from '@/icons'
 import { ScrollToSection } from '@/utils/scroll-to-section'
 import { Combine } from 'lucide-react'
 import { useTheme } from 'next-themes'
@@ -21,6 +21,11 @@ const nav_links = [
 		icon: <Combine />,
 		title: 'Scenarios',
 		link: '/scenarios',
+	},
+	{
+		icon: <Demo />,
+		title: 'Demo',
+		link: '/',
 	},
 	{
 		icon: <Pricing />,

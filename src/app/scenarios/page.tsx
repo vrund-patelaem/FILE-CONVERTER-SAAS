@@ -31,7 +31,15 @@ const Scenarios = () => {
 			name: 'OpenAI Scenario',
 			description: 'This is a scenario template for OpenAI',
 			fields: ['apiKey', 'apiOrg', 'assistantId'],
-			route: '/api/scenarios/openAI',
+			route: '/api/scenarios/openAIAssistant',
+		},
+		{
+			id: 'yDrAJwknRAzEhSRI',
+			image: '/scenarios/openAI.png',
+			name: 'OpenAI Scenario n8n',
+			description: 'This is a scenario template for OpenAI using n8n',
+			fields: ['apiKey', 'apiOrg', 'assistantId'],
+			route: '/api/workflows/openAIAssistant',
 		},
 	]
 
@@ -50,7 +58,7 @@ const Scenarios = () => {
 		try {
 			const response = await axios.post(`/api/active`, { projectId })
 
-			if(response.data.success) {
+			if (response.data.success) {
 				await getMyProjects()
 			}
 		} catch (error) {
@@ -58,13 +66,16 @@ const Scenarios = () => {
 		}
 	}
 
-	const createCloneScenario = async (values: { [key: string]: string }, route: string) => {
+	const createCloneScenario = async (
+		values: { [key: string]: string },
+		route: string
+	) => {
 		try {
 			setIsLoading(true)
-			const response = await axios.post(
-				route,
-				{ scenarioId: values.scenarioId, ...values }
-			)
+			const response = await axios.post(route, {
+				id: values.scenarioId,
+				...values,
+			})
 
 			if (response.data.success) {
 				await getMyProjects()
@@ -114,7 +125,7 @@ const Scenarios = () => {
 							<Formik
 								initialValues={initialValues}
 								validationSchema={generateValidationSchema(scenario.fields)}
-								onSubmit={(e) => createCloneScenario(e, scenario.route)}
+								onSubmit={e => createCloneScenario(e, scenario.route)}
 							>
 								{({ errors, touched }) => (
 									<Form className='w-full space-y-2 mt-2'>
@@ -161,20 +172,24 @@ const Scenarios = () => {
 						key={project.id}
 						className='flex flex-col space-y-3 justify-between glass rounded-xl border border-gray-600 bg items-start p-4 min-h-40'
 					>
-						<div className="flex w-full justify-between">
-						<p className='text-lg font-bold w-full truncate text-wrap'>
-							{project.type}
-						</p>
-						<Button onClick={() => activateProject(project.id)} variant='outline'>
-						{
-									project.status == 'active' ? <p className='text-green-500'>Active</p> : <p className='text-red-500'>Inactive</p>
-								}
-						</Button>
-								
+						<div className='flex w-full justify-between'>
+							<p className='text-lg font-bold w-full truncate text-wrap'>
+								{project.type}
+							</p>
+							<Button
+								onClick={() => activateProject(project.id)}
+								variant='outline'
+							>
+								{project.status == 'active' ? (
+									<p className='text-green-500'>Active</p>
+								) : (
+									<p className='text-red-500'>Inactive</p>
+								)}
+							</Button>
 						</div>
-						<div className="flex flex-col gap-2">
-						<p>Assistant ID: {project.assistant_id}</p>
-						<p>Webhook Link: {project.webhookLink}</p>
+						<div className='flex flex-col gap-2'>
+							<p>Assistant ID: {project.assistant_id}</p>
+							<p>Webhook Link: {project.webhookLink}</p>
 						</div>
 						<Link href={`/chat/${project.id}`} className='w-full'>
 							<Button className='w-full mt-2'>Go to chat</Button>

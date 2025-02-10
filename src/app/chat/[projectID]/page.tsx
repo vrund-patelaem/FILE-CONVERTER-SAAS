@@ -8,11 +8,9 @@ import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import * as Yup from 'yup'
 
-// Схема валидации
+// Validation schema
 const MessageSchema = Yup.object().shape({
-	message: Yup.string()
-		.trim()
-		.required('Message cannot be empty')
+	message: Yup.string().trim().required('Message cannot be empty'),
 })
 
 interface MessageFormValues {
@@ -54,21 +52,27 @@ export default function ChatPage() {
 		const response = await axios.post(webhookLink, {
 			message,
 		})
-		
+
 		if (response.data) {
-			setMessages(prev => [...prev, {
-				id: Date.now().toString(),
-				text: response.data.toString(),
-				sender: 'ai' as const,
-				timestamp: new Date(),
-			}])
+			setMessages(prev => [
+				...prev,
+				{
+					id: Date.now().toString(),
+					text: response.data.toString(),
+					sender: 'ai' as const,
+					timestamp: new Date(),
+				},
+			])
 		}
 	}
 
-	const handleSubmit = async (values: MessageFormValues, { resetForm }: any) => {
+	const handleSubmit = async (
+		values: MessageFormValues,
+		{ resetForm }: any
+	) => {
 		if (!values.message.trim()) return
 
-		// Создаем новое сообщение
+		// Create new message
 		const newMessage = {
 			id: Date.now().toString(),
 			text: values.message,
@@ -76,13 +80,13 @@ export default function ChatPage() {
 			timestamp: new Date(),
 		}
 
-		// Добавляем сообщение в список
+		// Add message to the list
 		setMessages(prev => [...prev, newMessage])
-		
-		// Отправляем сообщение
+
+		// Send message
 		await fetchMessage(values.message)
-		
-		// Сбрасываем форму
+
+		// Reset form
 		resetForm()
 	}
 
@@ -126,9 +130,10 @@ export default function ChatPage() {
 							name='message'
 							placeholder='Send message...'
 							className={`flex-1 p-2 rounded-md focus:outline-none focus:ring-2 
-								${errors.message && touched.message 
-									? 'focus:ring-red-500 border-red-500' 
-									: 'focus:ring-blue-500'
+								${
+									errors.message && touched.message
+										? 'focus:ring-red-500 border-red-500'
+										: 'focus:ring-blue-500'
 								}`}
 						/>
 						<Button
