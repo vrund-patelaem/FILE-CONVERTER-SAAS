@@ -11,17 +11,11 @@ import {
 } from '@/components/ui/sheet'
 import { Blog, Demo, Moon, OpenNav, Pricing, RightArrow, Sun } from '@/icons'
 import { ScrollToSection } from '@/utils/scroll-to-section'
-import { Combine } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import Link from 'next/link'
 import { useEffect } from 'react'
 
 const nav_links = [
-	{
-		icon: <Combine />,
-		title: 'Scenarios',
-		link: '/scenarios',
-	},
 	{
 		icon: <Demo />,
 		title: 'Demo',
