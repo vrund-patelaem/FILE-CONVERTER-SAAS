@@ -3,7 +3,7 @@ import themes from 'daisyui/src/theming/themes'
 
 const config: ConfigProps = {
 	// REQUIRED
-	appName: 'Make Sync Test',
+	appName: 'microsaasfast',
 	// REQUIRED: a short description of your app for SEO tags (can be overwritten)
 	appDescription:
 		'The NextJS boilerplate with all you need to build your SaaS, AI tool, or any other web app.',
@@ -13,16 +13,15 @@ const config: ConfigProps = {
 		// Create multiple products in your Stripe dashboard, then add them here. You can add as many plans as you want, just make sure to add the priceId
 		products: [
 			{
-				type: 'subscription',
-				period: 'month',
-				title: 'Month',
-				productId: 'prod_RfcZbURhjSM2hh',
+				type: 'one-time', // one-time, subscription
+				title: 'your-title',
+				productId: 'your-product-id',
 				subtitle: 'Per month price',
 				price: 25,
 				isBest: true,
 				linkTitle: 'PAY MOTHERFUCKER',
 				featuresTitle: 'Features',
-				priceId: 'price_1QmHJvEAaaUk2802RQ6OimU5',
+				priceId: 'your-price-id',
 				features: [
 					{
 						title: 'Feature 1',
@@ -37,13 +36,13 @@ const config: ConfigProps = {
 			{
 				type: 'subscription',
 				period: 'year',
-				productId: 'prod_RfcZbURhjSM2hh',
+				productId: 'your-product-id',
 				title: 'Year',
 				subtitle: 'Per year price',
 				price: 25,
 				linkTitle: 'PAY MOTHERFUCKER YEAR',
 				featuresTitle: 'Features VIP',
-				priceId: 'price_1QmHJvEAaaUk2802RQ6OimU5',
+				priceId: 'your-price-id',
 				features: [
 					{
 						title: 'Feature 1',

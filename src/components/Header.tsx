@@ -114,13 +114,7 @@ const Header = () => {
 
 				<div className='hidden lg:flex gap-8'>
 					<ThemeSwitch />
-					<div
-						onClick={() => {
-							ScrollToSection('1')
-						}}
-					>
-						<ButtonSignin />
-					</div>
+					<ButtonSignin />
 				</div>
 
 				<div className='lg:hidden flex gap-2 sm:gap-4'>

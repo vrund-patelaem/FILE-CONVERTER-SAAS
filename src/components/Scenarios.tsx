@@ -26,20 +26,20 @@ const Scenarios = () => {
 
 	const availableScenarios: ScenarioTemplate[] = [
 		{
-			id: 3576573,
+			id: 0, // Make ID number
 			image: '/scenarios/make.png',
 			name: 'OpenAI Scenario Make',
 			description: 'This is a scenario template for OpenAI using Make',
-			fields: ['apiKey', 'apiOrg', 'assistantId'],
-			route: '/api/scenarios/openAIAssistant',
+			fields: ['apiKey', 'apiOrg', 'assistantId'], // make fields
+			route: '/api/scenarios/openAIAssistant', // make route
 		},
 		{
-			id: 'NgaUitI4c7KrjBbP',
+			id: 'your scenario id', // n8n ID string
 			image: '/scenarios/n8n.png',
 			name: 'OpenAI Scenario n8n',
 			description: 'This is a scenario template for OpenAI using n8n',
-			fields: ['apiKey', 'apiOrg', 'assistantId'],
-			route: '/api/workflows/openAIAssistant',
+			fields: ['apiKey', 'apiOrg', 'assistantId'], // n8n fields
+			route: '/api/workflows/openAIAssistant', // n8n route
 		},
 	]
 
@@ -125,7 +125,6 @@ const Scenarios = () => {
 							<p className='text-sm w-full text-center text-gray-400'>
 								{scenario.description}
 							</p>
-
 
 							<Formik
 								initialValues={initialValues}

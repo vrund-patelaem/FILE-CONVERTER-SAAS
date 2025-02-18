@@ -143,7 +143,7 @@ export async function POST(req: Request) {
 		const dbProject = await prisma.project.create({
 			data: {
 				connection_id: credentialsId,
-				webhook_id: newid, // Используем ID workflow вместо отдельного webhook ID
+				webhook_id: newid, // Using workflow ID instead of separate webhook ID
 				scenario_id: newid,
 				user_clerk_id: user.id,
 				webhookLink: webhookLink,
